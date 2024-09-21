@@ -1,0 +1,76 @@
+.root {
+    -fx-background-color: #121212; /* Fondo de pantalla negro */
+    -fx-font-family: "Courier New", monospace; /* Fuente estilo consola */
+    -fx-font-size: 13px; /* Tamaño de la fuente */
+}
+
+.green-button {
+    -fx-background-color: #4CAF50; /* Verde */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-border-color: transparent; /* Borde transparente */
+    -fx-font-size: 14px; /* Tamaño de la fuente */
+    -fx-font-weight: bold; /* Fuente en negrita */
+    -fx-padding: 10px 10px; /* Relleno interno */
+    -fx-cursor: hand; /* Cursor de mano */
+    -fx-background-radius: 5px; /* Borde redondeado */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0); /* Efecto de sombra */
+}
+
+.green-button:hover {
+    -fx-background-color: #66BB6A; /* Verde más claro al pasar el ratón */
+}
+
+.green-button:pressed {
+    -fx-background-color: #388E3C; /* Verde más oscuro al presionar */
+}
+
+/* Estilo para el TextField */
+.text-field {
+    -fx-background-color: black;          /* Fondo negro */
+    -fx-text-fill: #20C20E;               /* Texto verde */
+    -fx-border-color: #20C20E;            /* Borde verde */
+    -fx-border-width: 2px;                /* Grosor del borde */
+    -fx-font-family: "Courier New", monospace; /* Fuente estilo consola */
+    -fx-padding: 5px;                     /* Espaciado interno */
+    -fx-caret-color: #20C20E;             /* Color del cursor de texto */
+}
+
+/* Estilo para cuando la label es presionada */
+.volver:pressed {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 0.5, 0.0, 0.0);
+}
+
+.common-label {
+    -fx-text-fill: #20C20E;
+}
+
+/* Estilo para AnchorPane modal */
+.modal-pane {
+    -fx-background-color: #121212; /* Fondo negro */
+    -fx-border-color: #20C20E;     /* Borde verde */
+    -fx-border-width: 3px;         /* Grosor del borde */
+    -fx-border-radius: 10px;       /* Bordes redondeados */
+    -fx-background-radius: 10px;   /* Redondear el fondo también */
+    -fx-padding: 20px;             /* Espacio interior */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 15, 0.5, 0, 0); /* Sombra */
+}
+
+/* Estilo para el botón de cerrar ventana */
+.close-button {
+    -fx-background-color: transparent; /* Sin fondo */
+    -fx-text-fill: white;              /* Texto blanco */
+    -fx-border-color: transparent;     /* Sin bordes */
+    -fx-padding: 0;                    /* Sin padding */
+    -fx-font-size: 16px;               /* Tamaño de la fuente */
+    -fx-cursor: hand;                  /* Cursor de mano al pasar sobre el botón */
+}
+
+.close-button:hover {
+    -fx-text-fill: #FF0000;            /* Cambiar color a rojo al pasar el mouse */
+}
+
+.chat-pane {
+    -fx-border-color: green;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+}
