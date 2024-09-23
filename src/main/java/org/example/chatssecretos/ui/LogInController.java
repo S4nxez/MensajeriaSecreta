@@ -1,5 +1,6 @@
 package org.example.chatssecretos.ui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.Setter;
 import org.example.chatssecretos.HelloApplication;
+import org.example.chatssecretos.domain.modelo.User;
+import org.example.chatssecretos.domain.service.UserService;
+import org.example.chatssecretos.utils.Constantes;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,9 +27,9 @@ public class LogInController implements Initializable {
     @FXML
     private AnchorPane crearCuentaPane;
     @FXML
-    private TextField usernameField;
+    private TextField username;
     @FXML
-    private PasswordField pwdField;
+    private PasswordField pwd;
     @FXML
     private Label labelError;
     @FXML
@@ -33,43 +37,62 @@ public class LogInController implements Initializable {
     @FXML
     private Label labelErrorRepetir;
     @FXML
-    private TextField signUpUsernameField;
+    private TextField signUpUsername;
     @FXML
-    private PasswordField signUpPwdField;
+    private PasswordField signUpPwd;
     @FXML
     private PasswordField pwdFieldRepeat;
 
     @Setter
     private Stage stage;
 
+    private final UserService usrService = new UserService();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {}
 
     @FXML
     public void crearClicked(MouseEvent mouseEvent) {
         logInPane.setVisible(false);
+        signUpLabelError.setVisible(true);
+        labelErrorRepetir.setVisible(true);
+        labelError.setVisible(false);
         crearCuentaPane.setVisible(true);
     }
 
     public void signUpLogIn() {
-        usernameField.clear(); //Limpio todos los campos y los labels de error
-        pwdField.clear();
-        signUpUsernameField.clear();
-        signUpPwdField.clear();
+        username.clear();
+        pwd.clear();
+        signUpUsername.clear();
+        signUpPwd.clear();
         pwdFieldRepeat.clear();
         signUpLabelError.setVisible(false);
         labelErrorRepetir.setVisible(false);
-        labelError.setVisible(false);
+        labelError.setVisible(true);
 
         crearCuentaPane.setVisible(false);
         logInPane.setVisible(true);
     }
 
-    public void logInClicked(MouseEvent mouseEvent) throws IOException {
+    public void logInClicked() {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/example/chatssecretos/fxml/MainMenu.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Scene scene;
 
+        if (!usrService.logIn(new User(username.getText(), pwd.getText())))
+            return;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void checkCrear(ActionEvent actionEvent) {
+        labelErrorRepetir.setText(usrService.checkNewPassword(pwdFieldRepeat, signUpPwd) ? "" : Constantes.E_REPETIR_CONTRASENYA);
+        signUpLabelError.setText(usrService.checkNewUsrnm(signUpUsername) ? "" : Constantes.E_NOMBRE_USADO);
+
+        if(usrService.createUsr(pwd, pwdFieldRepeat, signUpUsername))
+            signUpLogIn();
     }
 }

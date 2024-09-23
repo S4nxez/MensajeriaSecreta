@@ -11,9 +11,9 @@
             <Image url="@../images/logo.png" />
       </ImageView>
       <Label layoutX="150.0" layoutY="172.0" styleClass="common-label" text="Usuario" />
-      <TextField fx:id="usernameField" layoutX="235.0" layoutY="168.0" prefWidth="150" styleClass="text-field" />
+      <TextField fx:id="username" layoutX="235.0" layoutY="168.0" prefWidth="150" styleClass="text-field" />
       <Label layoutX="150.0" layoutY="211.0" styleClass="common-label" text="Contraseña" />
-      <PasswordField fx:id="pwdField" layoutX="235.0" layoutY="207.0" prefWidth="150" styleClass="text-field" />
+      <PasswordField fx:id="pwd" layoutX="235.0" layoutY="207.0" prefWidth="150" styleClass="text-field" />
       <Button layoutX="260.0" layoutY="267.0" mnemonicParsing="false" onMouseClicked="#logInClicked" styleClass="green-button" text="LogIn" />
       <Label layoutX="130.0" layoutY="323.0" styleClass="common-label" text="¿ No tienes una cuenta aún ?" />
       <Label layoutX="360.0" layoutY="323.0" onMouseClicked="#crearClicked" text="Crear" textFill="BLUE" underline="true" />
@@ -23,17 +23,17 @@
    <!-- Contenido del layout de Crear Cuenta -->
    <AnchorPane fx:id="crearCuentaPane" visible="false">
       <Label layoutX="100.0" layoutY="62.0" styleClass="common-label" text="Nombre de usuario" />
-      <TextField fx:id="signUpUsernameField" layoutX="252.0" layoutY="55.0" prefWidth="150"/>
+      <TextField fx:id="signUpUsername" layoutX="252.0" layoutY="55.0" prefWidth="150" />
       <Label layoutX="102.0" layoutY="107.0" styleClass="common-label" text="Correo electrónico" />
-      <TextField layoutX="252.0" layoutY="100.0" prefWidth="150"/>
+      <TextField layoutX="252.0" layoutY="100.0" prefWidth="150" />
       <Label layoutX="140.0" layoutY="152.0" styleClass="common-label" text="Contraseña" />
-      <PasswordField fx:id="signUpPwdField" layoutX="252.0" layoutY="145.0" prefWidth="150" />
-      <Button layoutX="252.0" layoutY="250.0" mnemonicParsing="false" styleClass="green-button" text="Crear" />
+      <PasswordField fx:id="signUpPwd" layoutX="252.0" layoutY="145.0" prefWidth="150" />
+      <Button layoutX="252.0" layoutY="250.0" mnemonicParsing="false" onAction="#checkCrear" styleClass="green-button" text="Crear" />
       <Label layoutX="120.0" layoutY="323.0" styleClass="common-label" text="¿Ya tienes una cuenta?" />
       <Label layoutX="300.0" layoutY="323.0" onMouseClicked="#signUpLogIn" text="Iniciar sesión" textFill="BLUE" underline="true" />
       <Label fx:id="signUpLabelError" layoutX="200.0" layoutY="223.0" textFill="RED" />
       <PasswordField fx:id="pwdFieldRepeat" layoutX="252.0" layoutY="190.0" prefWidth="150" />
       <Label layoutX="102.0" layoutY="197.0" styleClass="common-label" text="Repetir contraseña" />
-      <Label fx:id="labelErrorRepetir" layoutX="379.0" layoutY="187.0" textFill="RED" />
+      <Label fx:id="labelErrorRepetir" layoutX="425.0" layoutY="175.0" textFill="RED" maxWidth="200" wrapText="true"/>
    </AnchorPane>
 </AnchorPane>
