@@ -1,17 +1,15 @@
-package org.example.chatssecretos.domain.dao;
+package org.example.chatssecretos.domain.dao.impl;
 
 
 import org.example.chatssecretos.domain.modelo.Message;
-import org.example.chatssecretos.domain.modelo.User;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoMessages {
+public class DaoMessageImpl {
     private List<Message> database = new ArrayList<>();
 
-    public DaoMessages() {
+    public DaoMessageImpl() {
         //database.add(new Message("Hola", LocalDateTime.now(), new User("Dani", "1234"), ,"GrupoZt"));
     }
 }

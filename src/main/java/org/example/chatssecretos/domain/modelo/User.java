@@ -1,9 +1,11 @@
 package org.example.chatssecretos.domain.modelo;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
+@AllArgsConstructor
 public class User {
-    private final String name;
-    private final String pwd;
+    private String name;
+    private String email;
+    private String pwd;
 }

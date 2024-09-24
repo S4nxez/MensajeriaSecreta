@@ -1,11 +1,11 @@
 package org.example.chatssecretos.utils.config;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.example.chatssecretos.utils.Constantes;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 
@@ -13,16 +13,15 @@ import java.util.Properties;
 @Getter
 public class Configuration {
     private String pathUsers;
-    private String baseUrl;
 
     public Configuration() {
+        Properties properties= new Properties();
         try {
-            Properties p = new Properties();
-            p.load(getClass().getClassLoader().getResourceAsStream(Constantes.CONFIG_PROPERTIES));
-            this.pathUsers = p.getProperty("pathUsers");
-            this.baseUrl = p.getProperty("baseUrl");
+            InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties");
+            properties.load(input);
+            this.pathUsers = properties.getProperty("pathUsers");
         } catch (IOException e) {
-            log.error(e.getMessage(),e);
+            e.printStackTrace();
         }
     }
 }

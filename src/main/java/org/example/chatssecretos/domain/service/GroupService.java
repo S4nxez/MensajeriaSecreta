@@ -1,9 +1,9 @@
 package org.example.chatssecretos.domain.service;
 
-import org.example.chatssecretos.domain.dao.DaoGroup;
+import org.example.chatssecretos.domain.dao.impl.DaoGroupImpl;
 
 public class GroupService {
-    private final DaoGroup database = new DaoGroup();
+    private final DaoGroupImpl database = new DaoGroupImpl();
 
 
 }

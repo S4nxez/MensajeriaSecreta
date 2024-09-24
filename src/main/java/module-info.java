@@ -6,6 +6,7 @@ module org.example.chatssecretos {
     requires org.apache.logging.log4j;
     exports org.example.chatssecretos.utils.config;
 
+    opens org.example.chatssecretos.domain.modelo to com.google.gson;
     opens org.example.chatssecretos to javafx.fxml;
     exports org.example.chatssecretos;
     exports org.example.chatssecretos.ui;

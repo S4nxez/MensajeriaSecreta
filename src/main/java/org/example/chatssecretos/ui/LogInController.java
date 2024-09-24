@@ -1,6 +1,5 @@
 package org.example.chatssecretos.ui;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -22,6 +21,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LogInController implements Initializable {
+
+    @FXML
+    public TextField email;
     @FXML
     private AnchorPane logInPane;
     @FXML
@@ -77,7 +79,7 @@ public class LogInController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/example/chatssecretos/fxml/MainMenu.fxml"));
         Scene scene;
 
-        if (!usrService.logIn(new User(username.getText(), pwd.getText())))
+        if (!usrService.logIn(new User(username.getText(), email.getText(),pwd.getText())))
             return;
         try {
             scene = new Scene(fxmlLoader.load());
@@ -88,11 +90,21 @@ public class LogInController implements Initializable {
         stage.show();
     }
 
-    public void checkCrear(ActionEvent actionEvent) {
+    public void checkCrear() {
         labelErrorRepetir.setText(usrService.checkNewPassword(pwdFieldRepeat, signUpPwd) ? "" : Constantes.E_REPETIR_CONTRASENYA);
         signUpLabelError.setText(usrService.checkNewUsrnm(signUpUsername) ? "" : Constantes.E_NOMBRE_USADO);
 
-        if(usrService.createUsr(pwd, pwdFieldRepeat, signUpUsername))
+        if(notEmpty() && usrService.createUsr(signUpPwd, email, signUpUsername) &&
+                usrService.checkNewPassword(pwdFieldRepeat, signUpPwd))
             signUpLogIn();
+    }
+
+    private boolean notEmpty() {
+        if(pwdFieldRepeat.getText().isEmpty() || signUpUsername.getText().isEmpty()|| signUpPwd.getText().isEmpty() ||
+                email.getText().isEmpty()) {
+            signUpLabelError.setText(Constantes.E_CAMPOS_INCOMPLETOS);
+            return false;
+        }
+        return true;
     }
 }

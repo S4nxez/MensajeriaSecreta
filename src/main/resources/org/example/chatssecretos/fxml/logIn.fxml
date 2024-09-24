@@ -25,7 +25,7 @@
       <Label layoutX="100.0" layoutY="62.0" styleClass="common-label" text="Nombre de usuario" />
       <TextField fx:id="signUpUsername" layoutX="252.0" layoutY="55.0" prefWidth="150" />
       <Label layoutX="102.0" layoutY="107.0" styleClass="common-label" text="Correo electrónico" />
-      <TextField layoutX="252.0" layoutY="100.0" prefWidth="150" />
+      <TextField fx:id="email" layoutX="252.0" layoutY="100.0" prefWidth="150" />
       <Label layoutX="140.0" layoutY="152.0" styleClass="common-label" text="Contraseña" />
       <PasswordField fx:id="signUpPwd" layoutX="252.0" layoutY="145.0" prefWidth="150" />
       <Button layoutX="252.0" layoutY="250.0" mnemonicParsing="false" onAction="#checkCrear" styleClass="green-button" text="Crear" />
