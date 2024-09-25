@@ -13,6 +13,8 @@ import java.util.Properties;
 @Getter
 public class Configuration {
     private String pathUsers;
+    private String pathGroups;
+    private String pathMessages;
 
     public Configuration() {
         Properties properties= new Properties();
@@ -20,8 +22,11 @@ public class Configuration {
             InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties");
             properties.load(input);
             this.pathUsers = properties.getProperty("pathUsers");
+            this.pathGroups = properties.getProperty("pathGroups");
+            this.pathMessages = properties.getProperty("pathMessages");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

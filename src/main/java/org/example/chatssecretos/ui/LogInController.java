@@ -79,10 +79,13 @@ public class LogInController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/example/chatssecretos/fxml/MainMenu.fxml"));
         Scene scene;
 
-        if (!usrService.logIn(new User(username.getText(), email.getText(),pwd.getText())))
+        if (!usrService.logIn(new User(username.getText() , "",pwd.getText())))
             return;
         try {
             scene = new Scene(fxmlLoader.load());
+            MainMenuController mainMenuController = fxmlLoader.getController();
+            mainMenuController.setUsername(username.getText());
+            mainMenuController.initializeTable();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

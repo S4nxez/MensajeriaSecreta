@@ -2,40 +2,46 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.chatssecretos.ui.MainMenu">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.chatssecretos.ui.MainMenuController">
     <Button layoutX="90.0" layoutY="50.0" onAction="#crearClicked" styleClass="green-button">Crear grupo</Button>
-    <Label layoutX="411.0" layoutY="42.0" styleClass="common-label">Tu usuario</Label>
+    <Label fx:id="usrnmDisplay" layoutX="411.0" layoutY="42.0" styleClass="common-label">
+      <font>
+         <Font size="25.0" />
+      </font></Label>
     <Button layoutX="690.0" layoutY="50.0" onAction="#anyadirClicked" styleClass="green-button">Añadir grupo</Button>
-        <TableView fx:id="tablaUsuarios" layoutX="30.0" layoutY="110.0" prefHeight="470.0" prefWidth="400.0">
+        <TableView fx:id="groupsTable" layoutX="30.0" layoutY="110.0" prefHeight="470.0" prefWidth="400.0">
             <columns>
-                <TableColumn fx:id="columnaNombre" prefWidth="85.0" text="Usuario" />
-                <TableColumn fx:id="columnaMensaje" prefWidth="315" text="Último mensaje" />
+                <TableColumn fx:id="nameColumn" prefWidth="85.0" text="Grupo" />
+                <TableColumn fx:id="messageColumn" prefWidth="315" text="Último mensaje" />
             </columns>
         </TableView>
 
     <AnchorPane layoutX="522.0" layoutY="110.0" prefHeight="470.0" prefWidth="362.0" styleClass="chat-pane">
-        <Label layoutX="116.0" layoutY="22.0" styleClass="common-label">Nombre de usuario</Label>
-        <TextField layoutX="11.0" layoutY="412.0" prefHeight="30.0" prefWidth="316.0" />
-        <Button layoutX="335.0" layoutY="415.0" mnemonicParsing="false" text="&gt;" />
+        <Label fx:id="nombreGrupo" layoutX="116.0" layoutY="22.0" styleClass="common-label" text="Ningún grupo seleccionado"/>
+        <TextField fx:id="msgField" layoutX="11.0" layoutY="412.0" prefHeight="30.0" prefWidth="316.0" visible="false" />
+        <Button fx:id="send" layoutX="335.0" layoutY="415.0" mnemonicParsing="false" onAction="#sendMsg" text="&gt;" visible="false" />
+        <ListView fx:id="messagesList" layoutX="12.0" layoutY="56.0" prefHeight="336.0" prefWidth="343.0" />
     </AnchorPane>
     <AnchorPane fx:id="modalPane" layoutX="300" layoutY="100" prefHeight="200" prefWidth="300" styleClass="modal-pane" visible="false">
         <Button onAction="#closeModal" styleClass="close-button" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">🗙</Button>
+      <Label fx:id="errorCrear" layoutX="84.0" layoutY="278.0" textFill="RED" />
         <AnchorPane fx:id="crearFields" visible="false">
             <Label layoutX="30" layoutY="30.0" styleClass="common-label" text="Enlace del grupo" />
-            <TextField fx:id="crearNombre" layoutX="100.0" layoutY="60.0" prefWidth="150" />
+            <TextField fx:id="createName" layoutX="100.0" layoutY="60.0" prefWidth="150" />
             <Label layoutX="30" layoutY="95.0" styleClass="common-label" text="Contraseña" />
-            <PasswordField fx:id="crearPwd" layoutX="100.0" layoutY="120.0" prefWidth="150" />
+            <PasswordField fx:id="createPwd" layoutX="100.0" layoutY="120.0" prefWidth="150" />
             <Label layoutX="30" layoutY="155.0" styleClass="common-label" text="Repetir contraseña" />
             <PasswordField fx:id="pwdRepeat" layoutX="100.0" layoutY="180.0" prefWidth="150" />
-            <Button layoutX="120" layoutY="220" styleClass="green-button">Crear</Button>
+            <Button layoutX="120" layoutY="220" onAction="#createGroup" styleClass="green-button">Crear</Button>
         </AnchorPane>
         <AnchorPane fx:id="anyadirFields" visible="false">
             <Label layoutX="30" layoutY="50.0" styleClass="common-label" text="Enlace del grupo" />
-            <TextField fx:id="nombreGrupo" layoutX="100.0" layoutY="80.0" prefWidth="150" />
+            <TextField fx:id="logInLink" layoutX="100.0" layoutY="80.0" prefWidth="150" />
             <Label layoutX="30" layoutY="120.0" styleClass="common-label" text="Contraseña" />
-            <PasswordField fx:id="introducirPwd" layoutX="100.0" layoutY="150.0" prefWidth="150" />
-            <Button layoutX="120" layoutY="220" styleClass="green-button">Entrar</Button>
+            <PasswordField fx:id="logInPwd" layoutX="100.0" layoutY="150.0" prefWidth="150" />
+            <Button layoutX="120" layoutY="220" onAction="#entrarClicked" styleClass="green-button">Entrar</Button>
         </AnchorPane>
     </AnchorPane>
 </AnchorPane>

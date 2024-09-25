@@ -8,12 +8,10 @@ import java.util.List;
 
 
 public class DaoUserImpl implements DaoUser {
-    private List<User> users;
-    private Database db;
+    private final Database db;
 
     public DaoUserImpl() {
         this.db = new Database();
-        this.users = db.loadUsers();
     }
 
     @Override

@@ -35,11 +35,6 @@
     -fx-caret-color: #20C20E;             /* Color del cursor de texto */
 }
 
-/* Estilo para cuando la label es presionada */
-.volver:pressed {
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.75), 10, 0.5, 0.0, 0.0);
-}
-
 .common-label {
     -fx-text-fill: #20C20E;
 }
@@ -51,7 +46,7 @@
     -fx-border-width: 3px;         /* Grosor del borde */
     -fx-border-radius: 10px;       /* Bordes redondeados */
     -fx-background-radius: 10px;   /* Redondear el fondo también */
-    -fx-padding: 20px;             /* Espacio interior */
+    -fx-padding: 10px;             /* Espacio interior */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 15, 0.5, 0, 0); /* Sombra */
 }
 
@@ -73,4 +68,60 @@
     -fx-border-color: green;
     -fx-border-width: 2;
     -fx-border-radius: 5;
+}
+
+/* Estilo para la ListView que contiene los mensajes */
+.list-view {
+    -fx-background-color: #1E1E1E;  /* Fondo oscuro */
+    -fx-padding: 5px;               /* Espaciado interno */
+    -fx-background-radius: 5px;     /* Fondo redondeado */
+}
+
+/* Estilo para los mensajes dentro de la ListView */
+.list-cell {
+    -fx-background-color: #1E1E1E;  /* Fondo de los mensajes */
+    -fx-text-fill: #20C20E;         /* Texto verde */
+    -fx-font-family: "Courier New", monospace;  /* Fuente de consola */
+    -fx-font-size: 13px;            /* Tamaño de la fuente */
+    -fx-padding: 10px;              /* Espaciado interno de cada mensaje */
+    -fx-background-radius: 5px;     /* Bordes redondeados */
+}
+
+/* Hover sobre cada mensaje */
+.list-cell:hover {
+    -fx-background-color: #2A2A2A;  /* Fondo más claro al pasar el mouse */
+}
+
+/* Estilo para la tabla que contiene los grupos */
+
+.table-view {
+    -fx-background-color: #1E1E1E;  /* Fondo oscuro */
+    -fx-border-color: #20C20E;      /* Borde verde */
+    -fx-border-width: 2px;          /* Grosor del borde */
+    -fx-border-radius: 5px;         /* Bordes redondeados */
+    -fx-padding: 5px;               /* Espaciado interno */
+    -fx-background-radius: 5px;     /* Fondo redondeado */
+}
+
+/* Estilo para las filas de la TableView */
+.table-row-cell {
+    -fx-background-color: #121212;  /* Fondo de las filas */
+    -fx-font-family: "Courier New", monospace;  /* Fuente de consola */
+    -fx-font-size: 13px;            /* Tamaño de la fuente */
+    -fx-padding: 10px;              /* Espaciado interno de cada fila */
+    -fx-background-radius: 5px;     /* Bordes redondeados */
+    -fx-border-color: #20C20E;      /* Borde verde */
+    -fx-border-width: 1px;          /* Grosor del borde */
+}
+
+/* Hover sobre cada fila */
+.table-row-cell:hover {
+    -fx-background-color: #2A2A2A;  /* Fondo más claro al pasar el mouse */
+}
+
+/* Estilo para las celdas de la TableView */
+.table-cell {
+    -fx-background-color: transparent; /* Fondo transparente para celdas */
+    -fx-text-fill: #20C20E;            /* Texto verde */
+    -fx-padding: 8px;                  /* Espaciado interno en las celdas */
 }

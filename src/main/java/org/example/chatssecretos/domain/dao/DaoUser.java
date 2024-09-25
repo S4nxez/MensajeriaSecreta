@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface DaoUser {
     boolean addUser(User user);
-    
+
     List<User> getUsers();
 }

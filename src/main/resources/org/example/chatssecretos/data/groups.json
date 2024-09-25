@@ -1,0 +1,77 @@
+[
+  {
+    "nombre": "us",
+    "miembros": [
+      {
+        "name": "user",
+        "email": "user@gmail.com",
+        "pwd": "user"
+      }
+    ],
+    "password": "ss",
+    "usrnmAdmin": "user",
+    "creationDate": "2024-09-25T12:26:49.8506983"
+  },
+  {
+    "nombre": "user",
+    "miembros": [
+      {
+        "name": "user",
+        "email": "user@gmail.com",
+        "pwd": "user"
+      }
+    ],
+    "password": "s",
+    "usrnmAdmin": "user",
+    "creationDate": "2024-09-25T13:27:22.8710996"
+  },
+  {
+    "nombre": "grupo3",
+    "miembros": [
+      {
+        "name": "user2",
+        "email": "user2@gmail.com",
+        "pwd": "user2"
+      },
+      {
+        "name": "user",
+        "email": "user@gmail.com",
+        "pwd": "user"
+      }
+    ],
+    "password": "grupo3",
+    "usrnmAdmin": "user2",
+    "creationDate": "2024-09-25T16:47:47.3763847"
+  },
+  {
+    "nombre": "grupo2",
+    "miembros": [
+      {
+        "name": "user2",
+        "email": "user2@gmail.com",
+        "pwd": "user2"
+      },
+      {
+        "name": "user",
+        "email": "user@gmail.com",
+        "pwd": "user"
+      }
+    ],
+    "password": "grupo2",
+    "usrnmAdmin": "user2",
+    "creationDate": "2024-09-25T16:45:54.2535533"
+  },
+  {
+    "nombre": "grupo4",
+    "miembros": [
+      {
+        "name": "user",
+        "email": "user@gmail.com",
+        "pwd": "user"
+      }
+    ],
+    "password": "grupo4",
+    "usrnmAdmin": "user",
+    "creationDate": "2024-09-25T17:41:17.0836458"
+  }
+]
