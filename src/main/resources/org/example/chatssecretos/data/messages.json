@@ -82,5 +82,23 @@
     "timestamp": "2024-09-25T20:18:20.1518339",
     "sender": "user",
     "grupo": "grupo2"
+  },
+  {
+    "text": "mensaje privado",
+    "timestamp": "2024-09-26T13:19:48.1025293",
+    "sender": "user",
+    "grupo": "user:user2"
+  },
+  {
+    "text": "hola",
+    "timestamp": "2024-09-26T13:54:39.131012",
+    "sender": "user2",
+    "grupo": "grupo6"
+  },
+  {
+    "text": "adsad",
+    "timestamp": "2024-09-26T15:23:52.1168411",
+    "sender": "user",
+    "grupo": "grupo3"
   }
 ]

@@ -7,8 +7,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Data;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @Data
 public class Message {
@@ -22,6 +22,6 @@ public class Message {
 
     @Override
     public String toString(){
-        return sender + " -> " + text + "(hace " + -timestamp.compareTo(LocalDateTime.now()) + " horas)";
+        return sender + " -> " + text + "(hace " + Duration.between(timestamp, LocalDateTime.now()).toHours() + " horas)";
     }
 }

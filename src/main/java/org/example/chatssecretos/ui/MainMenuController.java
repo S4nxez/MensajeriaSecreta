@@ -3,13 +3,13 @@ package org.example.chatssecretos.ui;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import lombok.extern.log4j.Log4j2;
 import org.example.chatssecretos.domain.modelo.Group;
 import org.example.chatssecretos.domain.modelo.Message;
 import org.example.chatssecretos.domain.modelo.User;
@@ -20,12 +20,9 @@ import org.example.chatssecretos.utils.Constantes;
 
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
-
+@Log4j2
 public class MainMenuController implements Initializable {
 
     @FXML
@@ -33,27 +30,47 @@ public class MainMenuController implements Initializable {
     @FXML
     public AnchorPane crearFields;
     @FXML
-    public AnchorPane anyadirFields;
+    public SplitMenuButton listaUsers;
+    @FXML
+    public AnchorPane anyadirAmigoFields;
+    @FXML
+    public TextField newFriend;
+    @FXML
+    private AnchorPane anyadirFields;
+    @FXML
     public TextField createName;
+    @FXML
     public PasswordField createPwd;
+    @FXML
     public PasswordField pwdRepeat;
+    @FXML
     public Label usrnmDisplay;
+    @FXML
     public Label errorCrear;
+    @FXML
     public TableView<Group> groupsTable;
+    @FXML
     public TableColumn<Group, String> nameColumn;
+    @FXML
     public TableColumn<Group, String> messageColumn;
+    @FXML
     public PasswordField logInPwd;
+    @FXML
     public TextField logInLink;
+    @FXML
     public Label nombreGrupo;
-    public ListView messagesList;
+    @FXML
+    public ListView<Message> messagesList;
+    @FXML
     public TextField msgField;
+    @FXML
     public Button send;
 
     private String usrnmValue;
 
-    private GroupService groupService = new GroupService();
-    private UserService usrService = new UserService();
-    private MessageService msgService = new MessageService();
+    private final GroupService groupService = new GroupService();
+    private final UserService usrService = new UserService();
+    private final MessageService msgService = new MessageService();
 
     public void setUsername(String username) {
         usrnmDisplay.setText(username);
@@ -62,7 +79,6 @@ public class MainMenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initializeTable();
         groupsTable.setOnMouseClicked((MouseEvent event) -> groupClicked());
     }
 
@@ -70,9 +86,9 @@ public class MainMenuController implements Initializable {
         if (groupsTable.getSelectionModel().getSelectedItem() != null) {
             msgField.setVisible(true);
             send.setVisible(true);
-            Group selectedGroup = (Group) groupsTable.getSelectionModel().getSelectedItem();
+            Group selectedGroup = groupsTable.getSelectionModel().getSelectedItem();
             nombreGrupo.setText(selectedGroup.getNombre());
-            ObservableList list =  msgService.getMessagesByGroup(selectedGroup);
+            ObservableList<Message> list =  msgService.getMessagesByGroup(selectedGroup);
             if (list != null)
                 messagesList.setItems(list);
         }
@@ -81,7 +97,7 @@ public class MainMenuController implements Initializable {
 
     public void initializeTable() {
         List<Group> groups = groupService.getGroupsByUser(usrnmValue);
-        if (groups != null) {
+        if (!groups.isEmpty()) {
             groupsTable.setItems(FXCollections.observableArrayList(groups));
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             messageColumn.setCellValueFactory(cellData -> {
@@ -89,7 +105,16 @@ public class MainMenuController implements Initializable {
                 String lastMessage = msgService.getLastMessage(group);
                 return new SimpleStringProperty(lastMessage);
             });
+
         }
+    }
+
+    public void initializeDropList() {
+        listaUsers.getItems().clear();
+        Optional<User> optionalUser = usrService.getUserByName(usrnmDisplay.getText());
+
+        optionalUser.ifPresent(usr -> usrService.getFriends(usr)
+                .forEach(user -> listaUsers.getItems().add(new MenuItem(user))));
     }
 
     public void crearClicked() {
@@ -99,12 +124,14 @@ public class MainMenuController implements Initializable {
         pwdRepeat.setText("");
         anyadirFields.setVisible(false);
         modalPane.setVisible(true);
+        anyadirAmigoFields.setVisible(false);
         crearFields.setVisible(true);
     }
 
     public void anyadirClicked() {
         modalPane.setVisible(true);
         crearFields.setVisible(false);
+        anyadirAmigoFields.setVisible(false);
         anyadirFields.setVisible(true);
         errorCrear.setText("");
     }
@@ -114,13 +141,13 @@ public class MainMenuController implements Initializable {
     }
 
     public void createGroup() {
-        Optional<User> optionalUser = usrService.getUserByName(usrnmDisplay);
+        Optional<User> optionalUser = usrService.getUserByName(usrnmDisplay.getText());
         if (optionalUser.isPresent()) {
             User expectedUsr = optionalUser.get();
             if (createName.getText().isEmpty() || createPwd.getText().isEmpty() || pwdRepeat.getText().isEmpty() ||
                     !(pwdRepeat.getText().equals(createPwd.getText())) || !groupService.addGroup(new
                     Group(createName.getText(), new ArrayList<>(List.of(expectedUsr)), createPwd.getText(),
-                    usrnmDisplay.getText(), LocalDateTime.now()))) {
+                    usrnmDisplay.getText(), false, LocalDateTime.now()))) {
                 errorCrear.setText(Constantes.E_CAMPOS_GENERICO);
             } else {
                 errorCrear.setText("");
@@ -131,7 +158,10 @@ public class MainMenuController implements Initializable {
     }
 
     public void entrarClicked() {
-        if (groupService.logIn(logInLink.getText() , logInPwd.getText(), usrService.getUserByName(usrnmDisplay).get())) {
+        Optional<User> usr = usrService.getUserByName(usrnmDisplay.getText());
+
+        if (usr.isPresent() && groupService.logIn(logInLink.getText() , logInPwd.getText(), usr.get()
+                )) {
             initializeTable();
             closeModal();
         } else {
@@ -140,8 +170,38 @@ public class MainMenuController implements Initializable {
     }
 
     public void sendMsg() {
-        msgService.addNewMessage(new Message(msgField.getText(), LocalDateTime.now(), usrnmValue, nombreGrupo.getText()));
-        msgField.setText("");
-        groupClicked();
+        if (msgService.addNewMessage(new Message(msgField.getText(), LocalDateTime.now(), usrnmValue,
+                nombreGrupo.getText()))) {
+            msgField.setText("");
+            groupClicked();
+        }else {
+            log.error(Constantes.E_MANDAR_MENSAJE);
+        }
+    }
+
+    public void addFriend() {
+        User current = usrService.getUserByName(usrnmValue).orElse(null);
+
+        if (usrService.addFriend(current, newFriend.getText()) && current != null) {
+            groupService.addPrivateGroup(current, Objects.requireNonNull(usrService.getUserByName(newFriend.getText())
+                    .orElse(null)));
+            initializeTable();
+            initializeDropList();
+            closeModal();
+        } else {
+            errorCrear.setText(Constantes.E_CAMPOS_GENERICO);
+        }
+    }
+
+    public void showAddFriend() {
+        errorCrear.setText("");
+        createName.setText("");
+        createPwd.setText("");
+        pwdRepeat.setText("");
+        anyadirFields.setVisible(false);
+        modalPane.setVisible(true);
+        crearFields.setVisible(false);
+        anyadirAmigoFields.setVisible(true);
+        errorCrear.setVisible(true);
     }
 }

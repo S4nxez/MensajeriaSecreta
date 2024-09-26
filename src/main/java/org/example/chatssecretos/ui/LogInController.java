@@ -2,25 +2,26 @@ package org.example.chatssecretos.ui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.example.chatssecretos.HelloApplication;
 import org.example.chatssecretos.domain.modelo.User;
 import org.example.chatssecretos.domain.service.UserService;
 import org.example.chatssecretos.utils.Constantes;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Collections;
 
-public class LogInController implements Initializable {
+import static java.lang.Boolean.TRUE;
+
+@Log4j2
+public class LogInController {
 
     @FXML
     public TextField email;
@@ -49,11 +50,11 @@ public class LogInController implements Initializable {
     private Stage stage;
 
     private final UserService usrService = new UserService();
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {}
+
 
     @FXML
-    public void crearClicked(MouseEvent mouseEvent) {
+    public void crearClicked() {
+        labelError.setText("");
         logInPane.setVisible(false);
         signUpLabelError.setVisible(true);
         labelErrorRepetir.setVisible(true);
@@ -67,10 +68,10 @@ public class LogInController implements Initializable {
         signUpUsername.clear();
         signUpPwd.clear();
         pwdFieldRepeat.clear();
+        email.clear();
         signUpLabelError.setVisible(false);
         labelErrorRepetir.setVisible(false);
         labelError.setVisible(true);
-
         crearCuentaPane.setVisible(false);
         logInPane.setVisible(true);
     }
@@ -79,26 +80,30 @@ public class LogInController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/example/chatssecretos/fxml/MainMenu.fxml"));
         Scene scene;
 
-        if (!usrService.logIn(new User(username.getText() , "",pwd.getText())))
+        if (!usrService.logIn(new User(username.getText() , "",pwd.getText(), Collections.emptyList()))) {
+            labelError.setText(Constantes.E_CAMPOS_GENERICO);
             return;
+        }
+        scene = null;
         try {
             scene = new Scene(fxmlLoader.load());
             MainMenuController mainMenuController = fxmlLoader.getController();
             mainMenuController.setUsername(username.getText());
             mainMenuController.initializeTable();
+            mainMenuController.initializeDropList();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error(e.getMessage());
         }
         stage.setScene(scene);
         stage.show();
     }
 
     public void checkCrear() {
-        labelErrorRepetir.setText(usrService.checkNewPassword(pwdFieldRepeat, signUpPwd) ? "" : Constantes.E_REPETIR_CONTRASENYA);
+        labelErrorRepetir.setText(TRUE.equals(usrService.checkNewPassword(pwdFieldRepeat, signUpPwd)) ? "" : Constantes.E_REPETIR_CONTRASENYA);
         signUpLabelError.setText(usrService.checkNewUsrnm(signUpUsername) ? "" : Constantes.E_NOMBRE_USADO);
 
         if(notEmpty() && usrService.createUsr(signUpPwd, email, signUpUsername) &&
-                usrService.checkNewPassword(pwdFieldRepeat, signUpPwd))
+                TRUE.equals(usrService.checkNewPassword(pwdFieldRepeat, signUpPwd)))
             signUpLogIn();
     }
 

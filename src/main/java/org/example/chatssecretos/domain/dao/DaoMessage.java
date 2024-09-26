@@ -10,5 +10,4 @@ public interface DaoMessage {
 
     List<Message> getMessage();
 
-    boolean saveMessage(List<Message> msg);
 }

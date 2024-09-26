@@ -3,9 +3,9 @@ package org.example.chatssecretos;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.example.chatssecretos.ui.LogInController;
+import org.example.chatssecretos.utils.Constantes;
 
 import java.io.IOException;
 
@@ -18,7 +18,7 @@ public class HelloApplication extends Application {
         controller.setStage(stage);
 
         stage.setScene(scene);
-        stage.setTitle("Chat privado"); //TODO quitar el string de aquí
+        stage.setTitle(Constantes.TITLE);
         stage.setResizable(false);
         stage.show();
     }

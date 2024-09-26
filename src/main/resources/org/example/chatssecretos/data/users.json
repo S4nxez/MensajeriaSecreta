@@ -1,11 +1,18 @@
 [
   {
-    "name":"user",
-    "email":"user@gmail.com",
-    "pwd":"user"
+    "name": "user",
+    "email": "user@gmail.com",
+    "pwd": "user",
+    "friends": [
+      "user2"
+    ]
   },
   {
-    "name":"user2",
-    "email":"user2@gmail.com",
-    "pwd":"user2"}
+    "name": "user2",
+    "email": "user@gmail.com",
+    "pwd": "user",
+    "friends": [
+      "user"
+    ]
+  }
 ]

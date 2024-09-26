@@ -92,6 +92,7 @@ public class Database {
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
         }
+        assert groups != null;
         return groups.remove(oldGroup) && saveGroups(groups);
     }
 
@@ -110,13 +111,29 @@ public class Database {
         return messages;
     }
 
-    public boolean saveMessage(List<Message> msgs) {
+    public boolean saveMessage(List<Message> messages) {
         try (FileWriter w = new FileWriter(config.getPathMessages())) {
-            gson.toJson(msgs, w);
+            gson.toJson(messages, w);
         } catch (IOException e) {
             log.error(e.getMessage(), e);
             return false;
         }
         return true;
+    }
+
+    public boolean deleteUser(User oldUser) {
+        Type groupListType = new TypeToken<ArrayList<User>>() {
+        }.getType();
+
+        List<User> users = null;
+        try {
+            users = gson.fromJson(
+                    new FileReader(config.getPathUsers()),
+                    groupListType);
+        } catch (FileNotFoundException e) {
+            log.error(e.getMessage(), e);
+        }
+        assert users != null;
+        return users.remove(oldUser) && saveUsers(users);
     }
 }

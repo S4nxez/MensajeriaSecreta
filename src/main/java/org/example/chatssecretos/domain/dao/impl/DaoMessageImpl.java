@@ -29,8 +29,4 @@ public class DaoMessageImpl implements DaoMessage {
         return db.loadMessage();
     }
 
-    @Override
-    public boolean saveMessage(List<Message> msg) {
-        return db.saveMessage(msg);
-    }
 }

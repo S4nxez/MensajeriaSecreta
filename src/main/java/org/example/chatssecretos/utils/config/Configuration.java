@@ -2,7 +2,6 @@ package org.example.chatssecretos.utils.config;
 
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
-import org.example.chatssecretos.utils.Constantes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +24,7 @@ public class Configuration {
             this.pathGroups = properties.getProperty("pathGroups");
             this.pathMessages = properties.getProperty("pathMessages");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
     }
 

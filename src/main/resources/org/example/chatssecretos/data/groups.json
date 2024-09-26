@@ -10,6 +10,7 @@
     ],
     "password": "ss",
     "usrnmAdmin": "user",
+    "privateGroup": false,
     "creationDate": "2024-09-25T12:26:49.8506983"
   },
   {
@@ -23,6 +24,7 @@
     ],
     "password": "s",
     "usrnmAdmin": "user",
+    "privateGroup": false,
     "creationDate": "2024-09-25T13:27:22.8710996"
   },
   {
@@ -41,6 +43,7 @@
     ],
     "password": "grupo3",
     "usrnmAdmin": "user2",
+    "privateGroup": false,
     "creationDate": "2024-09-25T16:47:47.3763847"
   },
   {
@@ -59,19 +62,32 @@
     ],
     "password": "grupo2",
     "usrnmAdmin": "user2",
+    "privateGroup": false,
     "creationDate": "2024-09-25T16:45:54.2535533"
   },
   {
-    "nombre": "grupo4",
+    "nombre": "user:user2",
     "miembros": [
       {
         "name": "user",
         "email": "user@gmail.com",
-        "pwd": "user"
+        "pwd": "user",
+        "friends": [
+          "user2"
+        ]
+      },
+      {
+        "name": "user2",
+        "email": "user@gmail.com",
+        "pwd": "user",
+        "friends": [
+          "user"
+        ]
       }
     ],
-    "password": "grupo4",
-    "usrnmAdmin": "user",
-    "creationDate": "2024-09-25T17:41:17.0836458"
+    "password": "",
+    "usrnmAdmin": "",
+    "privateGroup": true,
+    "creationDate": "2024-09-26T15:24:42.8035661"
   }
 ]

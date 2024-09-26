@@ -16,6 +16,7 @@ public class Group {
     private final ArrayList<User> miembros;
     private final String password;
     private final String usrnmAdmin;
+    private final boolean privateGroup;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)

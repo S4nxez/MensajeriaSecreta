@@ -31,4 +31,9 @@ public class DaoUserImpl implements DaoUser {
         return db.loadUsers();
     }
 
+    @Override
+    public boolean updateUsr(User initial) {
+        return db.loadUsers().stream().filter(u -> u.getName().equals(initial.getName())).findFirst().map(oldUser ->
+                db.deleteUser(oldUser) && addUser(initial)).orElse(false);
+    }
 }

@@ -14,4 +14,5 @@ module org.example.chatssecretos {
     exports org.example.chatssecretos;
     exports org.example.chatssecretos.ui;
     opens org.example.chatssecretos.ui to javafx.fxml;
+    exports org.example.chatssecretos.domain.modelo;
 }

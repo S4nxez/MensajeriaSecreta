@@ -10,19 +10,21 @@
       <font>
          <Font size="25.0" />
       </font></Label>
-    <Button layoutX="690.0" layoutY="50.0" onAction="#anyadirClicked" styleClass="green-button">Añadir grupo</Button>
-        <TableView fx:id="groupsTable" layoutX="30.0" layoutY="110.0" prefHeight="470.0" prefWidth="400.0">
+    <Button layoutX="720.0" layoutY="50.0" onAction="#anyadirClicked" styleClass="green-button">Añadir grupo</Button>
+        <TableView fx:id="groupsTable" layoutX="30.0" layoutY="110.0" prefHeight="470.0" prefWidth="446.0">
             <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="85.0" text="Grupo" />
                 <TableColumn fx:id="messageColumn" prefWidth="315" text="Último mensaje" />
             </columns>
         </TableView>
-
-    <AnchorPane layoutX="522.0" layoutY="110.0" prefHeight="470.0" prefWidth="362.0" styleClass="chat-pane">
-        <Label fx:id="nombreGrupo" layoutX="116.0" layoutY="22.0" styleClass="common-label" text="Ningún grupo seleccionado"/>
+    <SplitMenuButton fx:id="listaUsers" layoutX="384.0" layoutY="78.0" mnemonicParsing="false" text="Mis amigos">
+        <items/>
+    </SplitMenuButton>
+    <AnchorPane layoutX="503.0" layoutY="110.0" prefHeight="470.0" prefWidth="384.0" styleClass="chat-pane">
+        <Label fx:id="nombreGrupo" layoutX="116.0" layoutY="22.0" styleClass="common-label" text="Ningún grupo seleccionado" />
         <TextField fx:id="msgField" layoutX="11.0" layoutY="412.0" prefHeight="30.0" prefWidth="316.0" visible="false" />
         <Button fx:id="send" layoutX="335.0" layoutY="415.0" mnemonicParsing="false" onAction="#sendMsg" text="&gt;" visible="false" />
-        <ListView fx:id="messagesList" layoutX="12.0" layoutY="56.0" prefHeight="336.0" prefWidth="343.0" />
+        <ListView fx:id="messagesList" layoutX="12.0" layoutY="56.0" prefHeight="336.0" prefWidth="360.0" />
     </AnchorPane>
     <AnchorPane fx:id="modalPane" layoutX="300" layoutY="100" prefHeight="200" prefWidth="300" styleClass="modal-pane" visible="false">
         <Button onAction="#closeModal" styleClass="close-button" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">🗙</Button>
@@ -43,5 +45,11 @@
             <PasswordField fx:id="logInPwd" layoutX="100.0" layoutY="150.0" prefWidth="150" />
             <Button layoutX="120" layoutY="220" onAction="#entrarClicked" styleClass="green-button">Entrar</Button>
         </AnchorPane>
+        <AnchorPane fx:id="anyadirAmigoFields" visible="false">
+            <Label layoutX="30" layoutY="50.0" styleClass="common-label" text="Nombre de tu amigo" />
+            <TextField fx:id="newFriend" layoutX="100.0" layoutY="80.0" prefWidth="150" />
+            <Button layoutX="120" layoutY="220" onAction="#addFriend" styleClass="green-button">Agregar</Button>
+        </AnchorPane>
     </AnchorPane>
+   <Button layoutX="556.0" layoutY="50.0" mnemonicParsing="false" onAction="#showAddFriend" styleClass="green-button" text="Añadir amigo" />
 </AnchorPane>

@@ -31,14 +31,8 @@ public class DaoGroupImpl implements DaoGroup {
     }
 
     @Override
-    public boolean saveGroups(List<Group> groups) {
-        return db.saveGroups(groups);
-    }
-
-    @Override
     public boolean updateGroup(Optional<Group> updatedGroup) {
-        Group oldGroup = db.loadGroups().stream().filter(g -> g.getNombre().equals(updatedGroup.get().getNombre()))
-                .findFirst().get();
-        return db.deleteGroup(oldGroup) && addGroup(updatedGroup.get());
+        return updatedGroup.map(group -> db.loadGroups().stream().filter(g -> g.getNombre().equals(group.getNombre())).findFirst()
+                .map(oldGroup -> db.deleteGroup(oldGroup) && addGroup(group)).orElse(false)).orElse(false);
     }
 }
