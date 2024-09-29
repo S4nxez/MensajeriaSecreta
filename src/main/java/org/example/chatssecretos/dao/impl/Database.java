@@ -1,4 +1,4 @@
-package org.example.chatssecretos.domain.dao.impl;
+package org.example.chatssecretos.dao.impl;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -81,10 +81,10 @@ public class Database {
     }
 
     public boolean deleteGroup(Group oldGroup) {
+        List<Group> groups = null;
         Type groupListType = new TypeToken<ArrayList<Group>>() {
         }.getType();
 
-        List<Group> groups = null;
         try {
             groups = gson.fromJson(
                     new FileReader(config.getPathGroups()),
@@ -92,15 +92,15 @@ public class Database {
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
         }
-        assert groups != null;
+        assert groups != null; //TODO quitar esto q me dijo como pero no me acuerdo
         return groups.remove(oldGroup) && saveGroups(groups);
     }
 
     public List<Message> loadMessage() {
+        List<Message> messages = null;
         Type groupListType = new TypeToken<ArrayList<Message>>() {
         }.getType();
 
-        List<Message> messages = null;
         try {
             messages = gson.fromJson(
                     new FileReader(config.getPathMessages()),
@@ -122,10 +122,10 @@ public class Database {
     }
 
     public boolean deleteUser(User oldUser) {
+        List<User> users = null;
         Type groupListType = new TypeToken<ArrayList<User>>() {
         }.getType();
 
-        List<User> users = null;
         try {
             users = gson.fromJson(
                     new FileReader(config.getPathUsers()),
@@ -133,7 +133,7 @@ public class Database {
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
         }
-        assert users != null;
+        assert users != null; //TODO lomismo
         return users.remove(oldUser) && saveUsers(users);
     }
 }

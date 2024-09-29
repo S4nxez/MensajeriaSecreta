@@ -5,10 +5,9 @@ import lombok.*;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 public class User {
-    private String name;
-    private String email;
-    private String pwd;
-    private List<String> friends;
+    private final String name;
+    private final String email;
+    private final String pwd;
+    private final List<String> friends;
 }

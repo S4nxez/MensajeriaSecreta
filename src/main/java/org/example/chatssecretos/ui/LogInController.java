@@ -99,11 +99,13 @@ public class LogInController {
     }
 
     public void checkCrear() {
-        labelErrorRepetir.setText(TRUE.equals(usrService.checkNewPassword(pwdFieldRepeat, signUpPwd)) ? "" : Constantes.E_REPETIR_CONTRASENYA);
-        signUpLabelError.setText(usrService.checkNewUsrnm(signUpUsername) ? "" : Constantes.E_NOMBRE_USADO);
+        labelErrorRepetir.setText(TRUE.equals(usrService.checkNewPassword(pwdFieldRepeat.getText(), signUpPwd.getText()))
+                ? "" : Constantes.E_REPETIR_CONTRASENYA);
+        signUpLabelError.setText(usrService.checkNewUsername(signUpUsername.getText()) ? "" : Constantes.E_NOMBRE_USADO);
 
-        if(notEmpty() && usrService.createUsr(signUpPwd, email, signUpUsername) &&
-                TRUE.equals(usrService.checkNewPassword(pwdFieldRepeat, signUpPwd)))
+        if(notEmpty() && usrService.createUser(new User(signUpUsername.getText(), email.getText(),
+                signUpPwd.getText(), Collections.emptyList())) && usrService.checkNewPassword(pwdFieldRepeat.getText(),
+                signUpPwd.getText()))
             signUpLogIn();
     }
 

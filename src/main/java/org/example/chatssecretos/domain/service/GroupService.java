@@ -1,6 +1,6 @@
 package org.example.chatssecretos.domain.service;
 
-import org.example.chatssecretos.domain.dao.impl.DaoGroupImpl;
+import org.example.chatssecretos.dao.impl.DaoGroupImpl;
 import org.example.chatssecretos.domain.modelo.Group;
 import org.example.chatssecretos.domain.modelo.User;
 
@@ -14,8 +14,8 @@ public class GroupService {
     private final DaoGroupImpl daoGroup = new DaoGroupImpl();
 
     public boolean checkGroupName(String signUpGroupName) {
-        return daoGroup.getGroups() == null || daoGroup.getGroups().stream().filter(g -> g.getNombre().equalsIgnoreCase(signUpGroupName))
-                .findFirst().isEmpty();
+        return daoGroup.getGroups() == null || daoGroup.getGroups().stream()
+                .anyMatch(g -> g.getNombre().equalsIgnoreCase(signUpGroupName));
     }
     public boolean addGroup(Group group) {
         if (checkGroupName(group.getNombre()))
@@ -34,8 +34,9 @@ public class GroupService {
 
     public boolean logIn(String groupName, String logInPwdText, User usr) {
         Optional<Group> group = daoGroup.getGroups().stream().filter(g -> g.getNombre().equalsIgnoreCase(groupName)).findFirst();
-        if (group.isPresent() && !group.get().isPrivateGroup() && group.get().getPassword().equals(logInPwdText) && group.get().getMiembros().stream()
-                .noneMatch(u -> u.getName().equals(usr.getName()))) {
+
+        if (group.isPresent() && !group.get().isPrivateGroup() && group.get().getPassword().equals(logInPwdText) &&
+                group.get().getMiembros().stream().noneMatch(u -> u.getName().equals(usr.getName()))) {
             group.get().getMiembros().add(usr);
             return daoGroup.updateGroup(group);
         }

@@ -1,38 +1,37 @@
 .root {
-    -fx-background-color: #121212; /* Fondo de pantalla negro */
-    -fx-font-family: "Courier New", monospace; /* Fuente estilo consola */
-    -fx-font-size: 13px; /* Tamaño de la fuente */
+    -fx-background-color: #121212;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 13px;
 }
 
 .green-button {
-    -fx-background-color: #4CAF50; /* Verde */
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-border-color: transparent; /* Borde transparente */
-    -fx-font-size: 14px; /* Tamaño de la fuente */
-    -fx-font-weight: bold; /* Fuente en negrita */
-    -fx-padding: 10px 10px; /* Relleno interno */
-    -fx-cursor: hand; /* Cursor de mano */
-    -fx-background-radius: 5px; /* Borde redondeado */
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0); /* Efecto de sombra */
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 10px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);
 }
 
 .green-button:hover {
-    -fx-background-color: #66BB6A; /* Verde más claro al pasar el ratón */
+    -fx-background-color: #66BB6A;
 }
 
 .green-button:pressed {
-    -fx-background-color: #388E3C; /* Verde más oscuro al presionar */
+    -fx-background-color: #388E3C;
 }
 
-/* Estilo para el TextField */
 .text-field {
-    -fx-background-color: black;          /* Fondo negro */
-    -fx-text-fill: #20C20E;               /* Texto verde */
-    -fx-border-color: #20C20E;            /* Borde verde */
-    -fx-border-width: 2px;                /* Grosor del borde */
-    -fx-font-family: "Courier New", monospace; /* Fuente estilo consola */
-    -fx-padding: 5px;                     /* Espaciado interno */
-    -fx-caret-color: #20C20E;             /* Color del cursor de texto */
+    -fx-background-color: black;
+    -fx-text-fill: #20C20E;
+    -fx-border-color: #20C20E;
+    -fx-border-width: 2px;
+    -fx-font-family: "Courier New", monospace;
+    -fx-padding: 5px;
+    -fx-caret-color: #20C20E;
 }
 
 .common-label {
@@ -41,27 +40,27 @@
 
 /* Estilo para AnchorPane modal */
 .modal-pane {
-    -fx-background-color: #121212; /* Fondo negro */
-    -fx-border-color: #20C20E;     /* Borde verde */
-    -fx-border-width: 3px;         /* Grosor del borde */
-    -fx-border-radius: 10px;       /* Bordes redondeados */
-    -fx-background-radius: 10px;   /* Redondear el fondo también */
-    -fx-padding: 10px;             /* Espacio interior */
+    -fx-background-color: #121212;
+    -fx-border-color: #20C20E;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 15, 0.5, 0, 0); /* Sombra */
 }
 
 /* Estilo para el botón de cerrar ventana */
 .close-button {
     -fx-background-color: transparent; /* Sin fondo */
-    -fx-text-fill: white;              /* Texto blanco */
-    -fx-border-color: transparent;     /* Sin bordes */
-    -fx-padding: 0;                    /* Sin padding */
-    -fx-font-size: 16px;               /* Tamaño de la fuente */
-    -fx-cursor: hand;                  /* Cursor de mano al pasar sobre el botón */
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
 }
 
 .close-button:hover {
-    -fx-text-fill: #FF0000;            /* Cambiar color a rojo al pasar el mouse */
+    -fx-text-fill: #FF0000;
 }
 
 .chat-pane {
@@ -72,56 +71,68 @@
 
 /* Estilo para la ListView que contiene los mensajes */
 .list-view {
-    -fx-background-color: #1E1E1E;  /* Fondo oscuro */
-    -fx-padding: 5px;               /* Espaciado interno */
-    -fx-background-radius: 5px;     /* Fondo redondeado */
+    -fx-background-color: #1E1E1E;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
 }
 
 /* Estilo para los mensajes dentro de la ListView */
 .list-cell {
-    -fx-background-color: #1E1E1E;  /* Fondo de los mensajes */
-    -fx-text-fill: #20C20E;         /* Texto verde */
-    -fx-font-family: "Courier New", monospace;  /* Fuente de consola */
-    -fx-font-size: 13px;            /* Tamaño de la fuente */
-    -fx-padding: 10px;              /* Espaciado interno de cada mensaje */
-    -fx-background-radius: 5px;     /* Bordes redondeados */
+    -fx-background-color: #1E1E1E;
+    -fx-text-fill: #20C20E;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
 }
 
 /* Hover sobre cada mensaje */
 .list-cell:hover {
-    -fx-background-color: #2A2A2A;  /* Fondo más claro al pasar el mouse */
+    -fx-background-color: #2A2A2A;
 }
 
 /* Estilo para la tabla que contiene los grupos */
 
 .table-view {
-    -fx-background-color: #1E1E1E;  /* Fondo oscuro */
-    -fx-border-color: #20C20E;      /* Borde verde */
-    -fx-border-width: 2px;          /* Grosor del borde */
-    -fx-border-radius: 5px;         /* Bordes redondeados */
-    -fx-padding: 5px;               /* Espaciado interno */
-    -fx-background-radius: 5px;     /* Fondo redondeado */
+    -fx-background-color: #1E1E1E;
+    -fx-border-color: #20C20E;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
 }
 
 /* Estilo para las filas de la TableView */
 .table-row-cell {
-    -fx-background-color: #121212;  /* Fondo de las filas */
-    -fx-font-family: "Courier New", monospace;  /* Fuente de consola */
-    -fx-font-size: 13px;            /* Tamaño de la fuente */
-    -fx-padding: 10px;              /* Espaciado interno de cada fila */
-    -fx-background-radius: 5px;     /* Bordes redondeados */
-    -fx-border-color: #20C20E;      /* Borde verde */
-    -fx-border-width: 1px;          /* Grosor del borde */
+    -fx-background-color: #121212;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #20C20E;
+    -fx-border-width: 1px;
 }
 
 /* Hover sobre cada fila */
 .table-row-cell:hover {
-    -fx-background-color: #2A2A2A;  /* Fondo más claro al pasar el mouse */
+    -fx-background-color: #2A2A2A;
 }
 
 /* Estilo para las celdas de la TableView */
 .table-cell {
-    -fx-background-color: transparent; /* Fondo transparente para celdas */
-    -fx-text-fill: #20C20E;            /* Texto verde */
-    -fx-padding: 8px;                  /* Espaciado interno en las celdas */
+    -fx-background-color: transparent;
+    -fx-text-fill: #20C20E;
+    -fx-padding: 8px;
 }
+
+.post-it {
+    -fx-background-color: #FFEB3B;
+    -fx-border-radius: 0;
+    -fx-padding: 10;
+    -fx-font-family: "Comic Sans MS";
+    -fx-font-size: 14;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3), 15, 0.5, 5, 5);
+    -fx-rotate: -2;
+    -fx-alignment: center;
+}
+

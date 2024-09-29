@@ -14,5 +14,11 @@
     "friends": [
       "user"
     ]
+  },
+  {
+    "name": "user3",
+    "email": "user",
+    "pwd": "asd",
+    "friends": []
   }
 ]

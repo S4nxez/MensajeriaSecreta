@@ -1,4 +1,4 @@
-package org.example.chatssecretos.domain.dao;
+package org.example.chatssecretos.dao;
 
 import org.example.chatssecretos.domain.modelo.Group;
 

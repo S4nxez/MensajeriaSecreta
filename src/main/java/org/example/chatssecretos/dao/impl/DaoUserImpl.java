@@ -1,6 +1,6 @@
-package org.example.chatssecretos.domain.dao.impl;
+package org.example.chatssecretos.dao.impl;
 
-import org.example.chatssecretos.domain.dao.DaoUser;
+import org.example.chatssecretos.dao.DaoUser;
 import org.example.chatssecretos.domain.modelo.User;
 
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ public class DaoUserImpl implements DaoUser {
 
     @Override
     public boolean addUser(User user) {
-        boolean ret;
         List<User> users = db.loadUsers();
+        boolean ret;
 
         if (users == null)
             users = new ArrayList<>();
@@ -32,7 +32,7 @@ public class DaoUserImpl implements DaoUser {
     }
 
     @Override
-    public boolean updateUsr(User initial) {
+    public boolean updateUser(User initial) {
         return db.loadUsers().stream().filter(u -> u.getName().equals(initial.getName())).findFirst().map(oldUser ->
                 db.deleteUser(oldUser) && addUser(initial)).orElse(false);
     }

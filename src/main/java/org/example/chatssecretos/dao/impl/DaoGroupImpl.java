@@ -1,6 +1,6 @@
-package org.example.chatssecretos.domain.dao.impl;
+package org.example.chatssecretos.dao.impl;
 
-import org.example.chatssecretos.domain.dao.DaoGroup;
+import org.example.chatssecretos.dao.DaoGroup;
 import org.example.chatssecretos.domain.modelo.Group;
 
 import java.util.ArrayList;

@@ -83,16 +83,17 @@ public class MainMenuController implements Initializable {
     }
 
     private void groupClicked() {
+        ObservableList<Message> list;
+        Group selectedGroup;
+
         if (groupsTable.getSelectionModel().getSelectedItem() != null) {
             msgField.setVisible(true);
             send.setVisible(true);
-            Group selectedGroup = groupsTable.getSelectionModel().getSelectedItem();
+            selectedGroup = groupsTable.getSelectionModel().getSelectedItem();
             nombreGrupo.setText(selectedGroup.getNombre());
-            ObservableList<Message> list =  msgService.getMessagesByGroup(selectedGroup);
-            if (list != null)
-                messagesList.setItems(list);
+            list =  FXCollections.observableArrayList(msgService.getMessagesByGroup(selectedGroup));
+            messagesList.setItems(list);
         }
-
     }
 
     public void initializeTable() {

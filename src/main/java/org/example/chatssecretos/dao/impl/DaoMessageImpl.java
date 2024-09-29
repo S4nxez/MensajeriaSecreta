@@ -1,7 +1,7 @@
-package org.example.chatssecretos.domain.dao.impl;
+package org.example.chatssecretos.dao.impl;
 
 
-import org.example.chatssecretos.domain.dao.DaoMessage;
+import org.example.chatssecretos.dao.DaoMessage;
 import org.example.chatssecretos.domain.modelo.Message;
 
 import java.util.ArrayList;
