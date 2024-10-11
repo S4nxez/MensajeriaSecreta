@@ -4,11 +4,14 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.example.chatssecretos.domain.modelo.Group;
 import org.example.chatssecretos.domain.modelo.Message;
@@ -17,12 +20,14 @@ import org.example.chatssecretos.domain.service.GroupService;
 import org.example.chatssecretos.domain.service.MessageService;
 import org.example.chatssecretos.domain.service.UserService;
 import org.example.chatssecretos.utils.Constantes;
+import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.*;
 
 @Log4j2
+@Component
 public class MainMenuController implements Initializable {
 
     @FXML
@@ -66,11 +71,20 @@ public class MainMenuController implements Initializable {
     @FXML
     public Button send;
 
+    @Setter
+    private Stage stage;
+
     private String usrnmValue;
 
-    private final GroupService groupService = new GroupService();
-    private final UserService usrService = new UserService();
-    private final MessageService msgService = new MessageService();
+    private final GroupService groupService;
+    private final UserService usrService;
+    private final MessageService msgService;
+
+    public MainMenuController(GroupService groupService, UserService usrService, MessageService msgService, FXMLLoader fxmlLoader) {
+        this.groupService = groupService;
+        this.usrService = usrService;
+        this.msgService = msgService;
+    }
 
     public void setUsername(String username) {
         usrnmDisplay.setText(username);
@@ -114,10 +128,20 @@ public class MainMenuController implements Initializable {
         listaUsers.getItems().clear();
         Optional<User> optionalUser = usrService.getUserByName(usrnmDisplay.getText());
 
-        optionalUser.ifPresent(usr -> usrService.getFriends(usr)
-                .forEach(user -> listaUsers.getItems().add(new MenuItem(user))));
+        optionalUser.ifPresent(usr -> {
+            usrService.getFriends(usr).forEach(user -> {
+                MenuItem menuItem = new MenuItem(user);
+                menuItem.setOnAction(event -> friendClicked(user)); // Manejar la selección
+                listaUsers.getItems().add(menuItem);
+            });
+        });
+    }
+    private void friendClicked(String username) {
+        User friend;
+        friend = usrService.getUserByName(username).get();
     }
 
+    @FXML
     public void crearClicked() {
         errorCrear.setText("");
         createName.setText("");
@@ -129,6 +153,7 @@ public class MainMenuController implements Initializable {
         crearFields.setVisible(true);
     }
 
+    @FXML
     public void anyadirClicked() {
         modalPane.setVisible(true);
         crearFields.setVisible(false);
@@ -137,10 +162,12 @@ public class MainMenuController implements Initializable {
         errorCrear.setText("");
     }
 
+    @FXML
     public void closeModal() {
         modalPane.setVisible(false);
     }
 
+    @FXML
     public void createGroup() {
         Optional<User> optionalUser = usrService.getUserByName(usrnmDisplay.getText());
         if (optionalUser.isPresent()) {
@@ -158,6 +185,7 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    @FXML
     public void entrarClicked() {
         Optional<User> usr = usrService.getUserByName(usrnmDisplay.getText());
 
@@ -170,6 +198,7 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    @FXML
     public void sendMsg() {
         if (msgService.addNewMessage(new Message(msgField.getText(), LocalDateTime.now(), usrnmValue,
                 nombreGrupo.getText()))) {
@@ -180,6 +209,7 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    @FXML
     public void addFriend() {
         User current = usrService.getUserByName(usrnmValue).orElse(null);
 
@@ -194,6 +224,7 @@ public class MainMenuController implements Initializable {
         }
     }
 
+    @FXML
     public void showAddFriend() {
         errorCrear.setText("");
         createName.setText("");

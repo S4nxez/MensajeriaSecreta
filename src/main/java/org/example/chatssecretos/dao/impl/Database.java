@@ -10,24 +10,22 @@ import org.example.chatssecretos.domain.modelo.User;
 import org.example.chatssecretos.utils.LocalDateTimeDeserializer;
 import org.example.chatssecretos.utils.LocalDateTimeSerializer;
 import org.example.chatssecretos.utils.config.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.time.LocalDateTime;
 import java.util.*;
 
+@Component
 @Log4j2
 public class Database {
     private final Gson gson;
 
     private final Configuration config;
 
-    public Database() {
-        GsonBuilder gsonBuilder = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerializer())
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeDeserializer()).setPrettyPrinting();
-        this.gson = gsonBuilder
-                .create();
-        this.config = new Configuration();
+    public Database(Gson gson, Configuration config) {
+        this.gson = gson;
+        this.config = config;
     }
 
     public List<User> loadUsers() {

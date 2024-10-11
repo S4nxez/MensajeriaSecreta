@@ -3,15 +3,17 @@ package org.example.chatssecretos.dao.impl;
 
 import org.example.chatssecretos.dao.DaoMessage;
 import org.example.chatssecretos.domain.modelo.Message;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class DaoMessageImpl implements DaoMessage {
     private final Database db;
 
-    public DaoMessageImpl() {
-        this.db = new Database();
+    public DaoMessageImpl(Database database) {
+        this.db = database;
     }
 
     @Override

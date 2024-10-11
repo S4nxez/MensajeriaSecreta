@@ -3,6 +3,7 @@ package org.example.chatssecretos.domain.service;
 import org.example.chatssecretos.dao.impl.DaoGroupImpl;
 import org.example.chatssecretos.domain.modelo.Group;
 import org.example.chatssecretos.domain.modelo.User;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -10,8 +11,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class GroupService {
-    private final DaoGroupImpl daoGroup = new DaoGroupImpl();
+    private final DaoGroupImpl daoGroup;
+
+    public GroupService(DaoGroupImpl daoGroup) {
+        this.daoGroup = daoGroup;
+    }
 
     public boolean checkGroupName(String signUpGroupName) {
         return daoGroup.getGroups() == null || daoGroup.getGroups().stream()
@@ -35,7 +41,7 @@ public class GroupService {
     public boolean logIn(String groupName, String logInPwdText, User usr) {
         Optional<Group> group = daoGroup.getGroups().stream().filter(g -> g.getNombre().equalsIgnoreCase(groupName)).findFirst();
 
-        if (group.isPresent() && !group.get().isPrivateGroup() && group.get().getPassword().equals(logInPwdText) &&
+        if (group.isPresent() && !group.get().isPrivateChat() && group.get().getPassword().equals(logInPwdText) &&
                 group.get().getMiembros().stream().noneMatch(u -> u.getName().equals(usr.getName()))) {
             group.get().getMiembros().add(usr);
             return daoGroup.updateGroup(group);

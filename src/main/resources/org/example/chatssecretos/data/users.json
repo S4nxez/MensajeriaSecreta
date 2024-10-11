@@ -10,7 +10,7 @@
   {
     "name": "user2",
     "email": "user@gmail.com",
-    "pwd": "user",
+    "pwd": "user2",
     "friends": [
       "user"
     ]
@@ -18,7 +18,7 @@
   {
     "name": "user3",
     "email": "user",
-    "pwd": "asd",
+    "pwd": "user3",
     "friends": []
   }
 ]

@@ -1,0 +1,127 @@
+.root {
+    -fx-background-color: #121212;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 13px;
+}
+
+.green-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 10px;
+    -fx-cursor: hand;
+    -fx-background-radius: 5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 0);
+}
+
+.green-button:hover {
+    -fx-background-color: #66BB6A;
+}
+
+.green-button:pressed {
+    -fx-background-color: #388E3C;
+}
+
+.text-field {
+    -fx-background-color: black;
+    -fx-text-fill: #20C20E;
+    -fx-border-color: #20C20E;
+    -fx-border-width: 2px;
+    -fx-font-family: "Courier New", monospace;
+    -fx-padding: 5px;
+    -fx-caret-color: #20C20E;
+}
+
+.common-label {
+    -fx-text-fill: #20C20E;
+}
+
+.modal-pane {
+    -fx-background-color: #121212;
+    -fx-border-color: #20C20E;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 15, 0.5, 0, 0);
+}
+
+.close-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+}
+
+.close-button:hover {
+    -fx-text-fill: #FF0000;
+}
+
+.chat-pane {
+    -fx-border-color: green;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+}
+
+.list-view {
+    -fx-background-color: #1E1E1E;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+}
+
+.list-cell {
+    -fx-background-color: #1E1E1E;
+    -fx-text-fill: #20C20E;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+}
+
+.list-cell:hover {
+    -fx-background-color: #2A2A2A;
+}
+
+.table-view {
+    -fx-background-color: #1E1E1E;
+    -fx-border-color: #20C20E;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-background-radius: 5px;
+}
+
+.table-row-cell {
+    -fx-background-color: #121212;
+    -fx-font-family: "Courier New", monospace;
+    -fx-font-size: 13px;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #20C20E;
+    -fx-border-width: 1px;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #2A2A2A;
+}
+
+.table-cell {
+    -fx-background-color: transparent;
+    -fx-text-fill: #20C20E;
+    -fx-padding: 8px;
+}
+
+.post-it {
+    -fx-background-color: #FFEB3B;
+    -fx-border-radius: 0;
+    -fx-padding: 10;
+    -fx-font-family: "Open Sans", sans-serif;
+    -fx-font-size: 12;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3), 15, 0.5, 5, 5);
+    -fx-rotate: -2;
+    -fx-alignment: center;
+}

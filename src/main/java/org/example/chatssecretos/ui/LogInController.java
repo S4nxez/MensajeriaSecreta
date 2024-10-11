@@ -10,21 +10,22 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import org.example.chatssecretos.HelloApplication;
 import org.example.chatssecretos.domain.modelo.User;
 import org.example.chatssecretos.domain.service.UserService;
 import org.example.chatssecretos.utils.Constantes;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
 
 import java.io.IOException;
 import java.util.Collections;
 
-import static java.lang.Boolean.TRUE;
-
 @Log4j2
+@Component
 public class LogInController {
 
     @FXML
-    public TextField email;
+    private TextField email;
     @FXML
     private AnchorPane logInPane;
     @FXML
@@ -49,8 +50,13 @@ public class LogInController {
     @Setter
     private Stage stage;
 
-    private final UserService usrService = new UserService();
+    private final UserService usrService;
+    private final ApplicationContext context;
 
+    public LogInController(UserService usrService, ApplicationContext context) {
+        this.usrService = usrService;
+        this.context = context;
+    }
 
     @FXML
     public void crearClicked() {
@@ -77,7 +83,6 @@ public class LogInController {
     }
 
     public void logInClicked() {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/example/chatssecretos/fxml/MainMenu.fxml"));
         Scene scene;
 
         if (!usrService.logIn(new User(username.getText() , "",pwd.getText(), Collections.emptyList()))) {
@@ -86,21 +91,24 @@ public class LogInController {
         }
         scene = null;
         try {
-            scene = new Scene(fxmlLoader.load());
-            MainMenuController mainMenuController = fxmlLoader.getController();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setControllerFactory(context::getBean);
+            loader.setLocation(getClass().getResource("/org/example/chatssecretos/fxml/mainMenu.fxml"));
+            scene = new Scene(loader.load());
+            MainMenuController mainMenuController = loader.getController();
             mainMenuController.setUsername(username.getText());
             mainMenuController.initializeTable();
             mainMenuController.initializeDropList();
         } catch (IOException e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(),e);
         }
         stage.setScene(scene);
         stage.show();
     }
 
     public void checkCrear() {
-        labelErrorRepetir.setText(TRUE.equals(usrService.checkNewPassword(pwdFieldRepeat.getText(), signUpPwd.getText()))
-                ? "" : Constantes.E_REPETIR_CONTRASENYA);
+        labelErrorRepetir.setText(usrService.checkNewPassword(pwdFieldRepeat.getText(), signUpPwd.getText()) ? ""
+                : Constantes.E_REPETIR_CONTRASENYA);
         signUpLabelError.setText(usrService.checkNewUsername(signUpUsername.getText()) ? "" : Constantes.E_NOMBRE_USADO);
 
         if(notEmpty() && usrService.createUser(new User(signUpUsername.getText(), email.getText(),

@@ -3,14 +3,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.chatssecretos.ui.LogInController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@/org/example/chatssecretos/fxml/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            >
    <!-- Contenido del layout de LogIn -->
    <AnchorPane fx:id="logInPane" prefHeight="342.0" prefWidth="600.0">
-      <Label fx:id="postItLabel" layoutX="450.0" layoutY="50.0" prefHeight="100.0" prefWidth="120.0" text="Recuerda tu contraseña" styleClass="post-it"/>
+      <TextFlow fx:id="postItLabel" layoutX="450.0" layoutY="50.0" prefHeight="138.0" prefWidth="141.0" styleClass="post-it">
+         <Text text="nombres=contraseñas" />
+         <Text text="Usuarios: user user2 user3" />
+         <Text text="                       "/>
+         <Text text="Grupos: grupo3 grupo2" />
+      </TextFlow>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="230" layoutY="10" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../images/logo.png" />
+            <Image url="@/org/example/chatssecretos/fxml/images/logo.png" />
       </ImageView>
       <Label layoutX="150.0" layoutY="172.0" styleClass="common-label" text="Usuario" />
       <TextField fx:id="username" layoutX="235.0" layoutY="168.0" prefWidth="150" styleClass="text-field" />
@@ -36,6 +42,6 @@
       <Label fx:id="signUpLabelError" layoutX="200.0" layoutY="223.0" textFill="RED" />
       <PasswordField fx:id="pwdFieldRepeat" layoutX="252.0" layoutY="190.0" prefWidth="150" />
       <Label layoutX="102.0" layoutY="197.0" styleClass="common-label" text="Repetir contraseña" />
-      <Label fx:id="labelErrorRepetir" layoutX="425.0" layoutY="175.0" textFill="RED" maxWidth="200" wrapText="true"/>
+      <Label fx:id="labelErrorRepetir" layoutX="425.0" layoutY="175.0" maxWidth="200" textFill="RED" wrapText="true" />
    </AnchorPane>
 </AnchorPane>

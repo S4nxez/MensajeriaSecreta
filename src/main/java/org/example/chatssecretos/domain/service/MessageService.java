@@ -4,11 +4,17 @@ import org.example.chatssecretos.dao.impl.DaoMessageImpl;
 import org.example.chatssecretos.domain.modelo.Group;
 import org.example.chatssecretos.domain.modelo.Message;
 import org.example.chatssecretos.utils.Constantes;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MessageService {
-    DaoMessageImpl msgDao = new DaoMessageImpl();
+    DaoMessageImpl msgDao;
+
+    public MessageService(DaoMessageImpl msgDao) {
+        this.msgDao = msgDao;
+    }
 
     public List<Message> getMessagesByGroup(Group group) {
         return msgDao.getMessage().stream().filter(message -> message.getGrupo().equals(group.getNombre())).toList();

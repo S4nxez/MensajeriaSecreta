@@ -2,16 +2,17 @@ package org.example.chatssecretos.dao.impl;
 
 import org.example.chatssecretos.dao.DaoUser;
 import org.example.chatssecretos.domain.modelo.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Repository
 public class DaoUserImpl implements DaoUser {
     private final Database db;
 
-    public DaoUserImpl() {
-        this.db = new Database();
+    public DaoUserImpl(Database database) {
+        this.db = database;
     }
 
     @Override

@@ -2,17 +2,19 @@ package org.example.chatssecretos.dao.impl;
 
 import org.example.chatssecretos.dao.DaoGroup;
 import org.example.chatssecretos.domain.modelo.Group;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class DaoGroupImpl implements DaoGroup {
 
     private final Database db;
 
-    public DaoGroupImpl() {
-        this.db = new Database();
+    public DaoGroupImpl(Database database) {
+        this.db = database;
     }
 
     @Override

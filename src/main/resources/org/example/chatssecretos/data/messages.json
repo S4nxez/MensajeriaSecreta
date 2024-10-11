@@ -106,5 +106,11 @@
     "timestamp": "2024-09-29T11:14:24.4290995",
     "sender": "user",
     "grupo": "grupo3"
+  },
+  {
+    "text": "prueba",
+    "timestamp": "2024-10-11T12:12:34.0668917",
+    "sender": "user",
+    "grupo": "user"
   }
 ]

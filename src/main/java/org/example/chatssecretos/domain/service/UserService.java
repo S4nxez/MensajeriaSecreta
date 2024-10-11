@@ -2,15 +2,20 @@ package org.example.chatssecretos.domain.service;
 
 import org.example.chatssecretos.dao.impl.DaoUserImpl;
 import org.example.chatssecretos.domain.modelo.User;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class UserService {
 
-    private final DaoUserImpl daoUser = new DaoUserImpl();
+    private final DaoUserImpl daoUser;
+
+    public UserService(DaoUserImpl daoUser) {
+        this.daoUser = daoUser;
+    }
 
     public Boolean checkNewPassword(String signUpPwdField, String pwdFieldRepeat) {
         return signUpPwdField.equals(pwdFieldRepeat);
