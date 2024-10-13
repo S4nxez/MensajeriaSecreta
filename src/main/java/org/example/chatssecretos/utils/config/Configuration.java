@@ -16,6 +16,7 @@ public class Configuration {
     private String pathUsers;
     private String pathGroups;
     private String pathMessages;
+    private String pathPrivateGroups;
 
     private Configuration() {
         Properties properties= new Properties();
@@ -25,9 +26,9 @@ public class Configuration {
             this.pathUsers = properties.getProperty("pathUsers");
             this.pathGroups = properties.getProperty("pathGroups");
             this.pathMessages = properties.getProperty("pathMessages");
+            this.pathPrivateGroups = properties.getProperty("pathPrivateGroups");
         } catch (IOException e) {
             log.error(e.getMessage());
         }
     }
-
 }

@@ -34,8 +34,7 @@ public class GroupService {
         if (daoGroup.getGroups() == null)
             return Collections.emptyList();
         return daoGroup.getGroups().stream()
-                .filter(g -> g.getMiembros().stream()
-                        .anyMatch(u -> u.getName().equalsIgnoreCase(usr))).toList();
+                .filter(g -> g.getMiembros().stream().anyMatch(u -> u.getName().equalsIgnoreCase(usr))).toList();
     }
 
     public boolean logIn(String groupName, String logInPwdText, User usr) {
@@ -50,7 +49,16 @@ public class GroupService {
     }
 
     public void addPrivateGroup(User user1, User user2) {
-        addGroup(new Group(user1.getName()+":"+user2.getName(), new ArrayList<>(List.of(user1,user2)), "",
-                "", true, LocalDateTime.now()));
+        addGroup(new Group(user1.getName()+":"+user2.getName(), new ArrayList<>(List.of(user1,user2)),
+                "","", true, LocalDateTime.now()));
+    }
+
+    public Group getGroupByName(String groupName) {
+        return daoGroup.getGroups().stream().filter(g -> g.getNombre().equals(groupName)).findFirst().orElse(null);
+    }
+
+    public Group getPrivateChats(User user1, User user2) {
+        return daoGroup.getGroups().stream().filter(g -> g.getMiembros().contains(user1) &&
+                g.getMiembros().contains(user2) && g.isPrivateChat()).findFirst().orElse(null);
     }
 }

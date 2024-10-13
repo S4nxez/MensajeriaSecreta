@@ -1,23 +1,25 @@
 package org.example.chatssecretos.ui;
 
+import io.vavr.control.Either;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
-import lombok.Setter;
+import javafx.scene.layout.HBox;
 import lombok.extern.log4j.Log4j2;
 import org.example.chatssecretos.domain.modelo.Group;
 import org.example.chatssecretos.domain.modelo.Message;
+import org.example.chatssecretos.domain.modelo.PrivateGroup;
 import org.example.chatssecretos.domain.modelo.User;
 import org.example.chatssecretos.domain.service.GroupService;
 import org.example.chatssecretos.domain.service.MessageService;
+import org.example.chatssecretos.domain.service.PrivateGroupService;
 import org.example.chatssecretos.domain.service.UserService;
 import org.example.chatssecretos.utils.Constantes;
 import org.springframework.stereotype.Component;
@@ -41,6 +43,16 @@ public class MainMenuController implements Initializable {
     @FXML
     public TextField newFriend;
     @FXML
+    public TextField groupName;
+    @FXML
+    public AnchorPane anyadirGrupoPrivadoFields;
+    @FXML
+    public Button showPrivateModal;
+    @FXML
+    public HBox hboxItem;
+    @FXML
+    public TextField privateGroupName;
+    @FXML
     private AnchorPane anyadirFields;
     @FXML
     public TextField createName;
@@ -53,11 +65,11 @@ public class MainMenuController implements Initializable {
     @FXML
     public Label errorCrear;
     @FXML
-    public TableView<Group> groupsTable;
+    public TableView<Object> groupsTable;
     @FXML
-    public TableColumn<Group, String> nameColumn;
+    public TableColumn<Object, String> nameColumn;
     @FXML
-    public TableColumn<Group, String> messageColumn;
+    public TableColumn<Object, String> messageColumn;
     @FXML
     public PasswordField logInPwd;
     @FXML
@@ -71,19 +83,19 @@ public class MainMenuController implements Initializable {
     @FXML
     public Button send;
 
-    @Setter
-    private Stage stage;
-
     private String usrnmValue;
 
     private final GroupService groupService;
     private final UserService usrService;
     private final MessageService msgService;
+    private final PrivateGroupService privateGroupService;
 
-    public MainMenuController(GroupService groupService, UserService usrService, MessageService msgService, FXMLLoader fxmlLoader) {
+    public MainMenuController(GroupService groupService, UserService usrService, MessageService msgService,
+                              PrivateGroupService privateGroupService) {
         this.groupService = groupService;
         this.usrService = usrService;
         this.msgService = msgService;
+        this.privateGroupService = privateGroupService;
     }
 
     public void setUsername(String username) {
@@ -98,29 +110,46 @@ public class MainMenuController implements Initializable {
 
     private void groupClicked() {
         ObservableList<Message> list;
-        Group selectedGroup;
+        Object selectedGroup;
 
         if (groupsTable.getSelectionModel().getSelectedItem() != null) {
             msgField.setVisible(true);
             send.setVisible(true);
             selectedGroup = groupsTable.getSelectionModel().getSelectedItem();
-            nombreGrupo.setText(selectedGroup.getNombre());
-            list =  FXCollections.observableArrayList(msgService.getMessagesByGroup(selectedGroup));
+            if (selectedGroup instanceof Group group) {
+                if (group.isPrivateChat()) {
+                    showPrivateModal.setVisible(false);
+                    nombreGrupo.setText(Constantes.CHAT_CON + group.getNombre());
+                } else {
+                    showPrivateModal.setVisible(true);
+                    nombreGrupo.setText(((Group)selectedGroup).getNombre());
+                }
+                list = FXCollections.observableArrayList(msgService.getMessagesByGroup(group));
+            } else {
+                nombreGrupo.setText(((PrivateGroup)selectedGroup).getNombre());
+                list = FXCollections.observableArrayList(msgService.getMessagesByGroup((PrivateGroup) selectedGroup));
+            }
             messagesList.setItems(list);
+
         }
     }
 
     public void initializeTable() {
         List<Group> groups = groupService.getGroupsByUser(usrnmValue);
-        if (!groups.isEmpty()) {
-            groupsTable.setItems(FXCollections.observableArrayList(groups));
+        List<PrivateGroup> privateGroups = privateGroupService.getPrivateGroupsByUsername(usrnmValue);
+
+        List<Object> combinedGroups = new ArrayList<>();
+        combinedGroups.addAll(groups);
+        combinedGroups.addAll(privateGroups);
+        if (!combinedGroups.isEmpty()) {
+            groupsTable.setItems(FXCollections.observableArrayList(combinedGroups));
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("nombre"));
             messageColumn.setCellValueFactory(cellData -> {
-                Group group = cellData.getValue();
-                String lastMessage = msgService.getLastMessage(group);
+                Object obj = cellData.getValue();
+                String lastMessage = (obj instanceof Group group) ? msgService.getLastMessage(group) :
+                        msgService.getLastMessage((PrivateGroup) obj);
                 return new SimpleStringProperty(lastMessage);
             });
-
         }
     }
 
@@ -128,17 +157,23 @@ public class MainMenuController implements Initializable {
         listaUsers.getItems().clear();
         Optional<User> optionalUser = usrService.getUserByName(usrnmDisplay.getText());
 
-        optionalUser.ifPresent(usr -> {
-            usrService.getFriends(usr).forEach(user -> {
-                MenuItem menuItem = new MenuItem(user);
-                menuItem.setOnAction(event -> friendClicked(user)); // Manejar la selección
-                listaUsers.getItems().add(menuItem);
-            });
-        });
+        optionalUser.ifPresent(usr -> usrService.getFriends(usr).forEach(user -> {
+            MenuItem menuItem = new MenuItem(user);
+            menuItem.setOnAction(event -> friendClicked(usrService.getUserByName(user).orElse(null)));
+            listaUsers.getItems().add(menuItem);
+        }));
     }
-    private void friendClicked(String username) {
-        User friend;
-        friend = usrService.getUserByName(username).get();
+
+    private void friendClicked(User friend) {
+        ObservableList<Message> list;
+        Group selectedGroup = groupService.getPrivateChats(friend, usrService.getUserByName(usrnmValue).orElse(null));
+
+        msgField.setVisible(true);
+        send.setVisible(true);
+        showPrivateModal.setVisible(false);
+        nombreGrupo.setText(Constantes.CHAT_CON + selectedGroup.getNombre());
+        list = FXCollections.observableArrayList(msgService.getMessagesByGroup(selectedGroup));
+        messagesList.setItems(list);
     }
 
     @FXML
@@ -148,6 +183,7 @@ public class MainMenuController implements Initializable {
         createPwd.setText("");
         pwdRepeat.setText("");
         anyadirFields.setVisible(false);
+        anyadirGrupoPrivadoFields.setVisible(false);
         modalPane.setVisible(true);
         anyadirAmigoFields.setVisible(false);
         crearFields.setVisible(true);
@@ -158,12 +194,17 @@ public class MainMenuController implements Initializable {
         modalPane.setVisible(true);
         crearFields.setVisible(false);
         anyadirAmigoFields.setVisible(false);
+        anyadirGrupoPrivadoFields.setVisible(false);
         anyadirFields.setVisible(true);
         errorCrear.setText("");
     }
 
     @FXML
     public void closeModal() {
+        anyadirGrupoPrivadoFields.setVisible(false);
+        anyadirAmigoFields.setVisible(false);
+        anyadirFields.setVisible(false);
+        crearFields.setVisible(false);
         modalPane.setVisible(false);
     }
 
@@ -231,9 +272,39 @@ public class MainMenuController implements Initializable {
         createPwd.setText("");
         pwdRepeat.setText("");
         anyadirFields.setVisible(false);
-        modalPane.setVisible(true);
         crearFields.setVisible(false);
+        anyadirGrupoPrivadoFields.setVisible(false);
+        modalPane.setVisible(true);
         anyadirAmigoFields.setVisible(true);
         errorCrear.setVisible(true);
+    }
+
+    @FXML
+    public void showNewPrivateGroup() {
+        modalPane.setVisible(true);
+        anyadirGrupoPrivadoFields.setVisible(true);
+        hboxItem.getChildren().clear();
+
+        Group currentGroup = groupService.getGroupByName(nombreGrupo.getText());
+        currentGroup.getMiembros().forEach(u->hboxItem.getChildren().add(new CheckBox(u.getName())));
+    }
+
+    @FXML
+    public void addPrivateGroup() {
+        List<User> selectedUsers = new ArrayList<>();
+        for (Node node : hboxItem.getChildren()) {
+            if (node instanceof CheckBox checkBox && checkBox.isSelected())
+                    selectedUsers.add(usrService.getUserByName(checkBox.getText()).orElse(null));
+        }
+        Either<String, PrivateGroup> group = privateGroupService.addNew(new PrivateGroup(privateGroupName.getText(),
+                new ArrayList<>(selectedUsers), usrnmValue, LocalDateTime.now()));
+        if (group.isRight()) {
+            privateGroupName.setText("");
+            closeModal();
+            initializeTable();
+        }
+        else{
+            errorCrear.setText(group.getLeft());
+        }
     }
 }

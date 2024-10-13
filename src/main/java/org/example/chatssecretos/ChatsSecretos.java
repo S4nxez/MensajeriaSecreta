@@ -22,12 +22,6 @@ public class ChatsSecretos extends Application {
 
     @Override
     public void start(Stage stage){
-        /*FXMLLoader fxmlLoader = new FXMLLoader(ChatsSecretos.class.getResource("/org/example/chatssecretos/fxml/logIn.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        LogInController controller = fxmlLoader.getController();
-        controller.setStage(stage);
-
-        stage.setScene(scene);*/ //esto hay que quitarlo
         stage.setTitle(Constantes.TITLE);
         stage.setResizable(false);
         stage.show();

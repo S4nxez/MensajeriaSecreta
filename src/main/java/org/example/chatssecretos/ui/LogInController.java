@@ -82,6 +82,7 @@ public class LogInController {
         logInPane.setVisible(true);
     }
 
+    @FXML
     public void logInClicked() {
         Scene scene;
 
@@ -106,6 +107,7 @@ public class LogInController {
         stage.show();
     }
 
+    @FXML
     public void checkCrear() {
         labelErrorRepetir.setText(usrService.checkNewPassword(pwdFieldRepeat.getText(), signUpPwd.getText()) ? ""
                 : Constantes.E_REPETIR_CONTRASENYA);

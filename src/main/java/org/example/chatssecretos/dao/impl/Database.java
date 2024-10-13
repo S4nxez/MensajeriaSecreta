@@ -1,14 +1,14 @@
 package org.example.chatssecretos.dao.impl;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import io.vavr.control.Either;
 import lombok.extern.log4j.Log4j2;
 import org.example.chatssecretos.domain.modelo.Group;
 import org.example.chatssecretos.domain.modelo.Message;
+import org.example.chatssecretos.domain.modelo.PrivateGroup;
 import org.example.chatssecretos.domain.modelo.User;
-import org.example.chatssecretos.utils.LocalDateTimeDeserializer;
-import org.example.chatssecretos.utils.LocalDateTimeSerializer;
+import org.example.chatssecretos.utils.Constantes;
 import org.example.chatssecretos.utils.config.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -59,9 +59,7 @@ public class Database {
 
         List<Group> groups = null;
         try {
-            groups = gson.fromJson(
-                    new FileReader(config.getPathGroups()),
-                    groupListType);
+            groups = gson.fromJson(new FileReader(config.getPathGroups()), groupListType);
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
         }
@@ -84,25 +82,24 @@ public class Database {
         }.getType();
 
         try {
-            groups = gson.fromJson(
-                    new FileReader(config.getPathGroups()),
-                    groupListType);
+            groups = gson.fromJson(new FileReader(config.getPathGroups()), groupListType);
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
         }
-        assert groups != null; //TODO quitar esto q me dijo como pero no me acuerdo
+        if (groups == null) {
+            log.error(Constantes.E_LISTA_USUARIOS_NULA);
+            return false;
+        }
         return groups.remove(oldGroup) && saveGroups(groups);
     }
 
     public List<Message> loadMessage() {
         List<Message> messages = null;
-        Type groupListType = new TypeToken<ArrayList<Message>>() {
+        Type messageListType = new TypeToken<ArrayList<Message>>() {
         }.getType();
 
         try {
-            messages = gson.fromJson(
-                    new FileReader(config.getPathMessages()),
-                    groupListType);
+            messages = gson.fromJson(new FileReader(config.getPathMessages()), messageListType);
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
         }
@@ -125,13 +122,38 @@ public class Database {
         }.getType();
 
         try {
-            users = gson.fromJson(
-                    new FileReader(config.getPathUsers()),
-                    groupListType);
+            users = gson.fromJson(new FileReader(config.getPathUsers()), groupListType);
         } catch (FileNotFoundException e) {
             log.error(e.getMessage(), e);
         }
-        assert users != null; //TODO lomismo
+
+        if (users == null) {
+            log.error(Constantes.USERS_LIST_IS_NULL);
+            return false;
+        }
         return users.remove(oldUser) && saveUsers(users);
+    }
+
+    public Either<String, List<PrivateGroup>> savePrivateGroups(List<PrivateGroup> groups) {
+        try (FileWriter w = new FileWriter(config.getPathPrivateGroups())) {
+            gson.toJson(groups, w);
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+            return Either.left(Constantes.E_GUARDAR_GRUPO);
+        }
+        return Either.right(groups);
+    }
+
+    public List<PrivateGroup> loadPrivateGroups() {
+        List<PrivateGroup> privateGroups = null;
+        Type privateGroupListType = new TypeToken<ArrayList<PrivateGroup>>() {
+        }.getType();
+
+        try {
+            privateGroups = gson.fromJson(new FileReader(config.getPathPrivateGroups()), privateGroupListType);
+        } catch (FileNotFoundException e) {
+            log.error(e.getMessage(), e);
+        }
+        return privateGroups;
     }
 }

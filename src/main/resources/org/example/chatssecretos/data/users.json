@@ -20,5 +20,11 @@
     "email": "user",
     "pwd": "user3",
     "friends": []
+  },
+  {
+    "name": "user4",
+    "email": "user4@gmail.com",
+    "pwd": "user4",
+    "friends": []
   }
 ]

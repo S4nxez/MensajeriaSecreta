@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@/org/example/chatssecretos/fxml/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            >
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@/org/example/chatssecretos/fxml/style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <!-- Contenido del layout de LogIn -->
    <AnchorPane fx:id="logInPane" prefHeight="342.0" prefWidth="600.0">
       <TextFlow fx:id="postItLabel" layoutX="450.0" layoutY="50.0" prefHeight="138.0" prefWidth="141.0" styleClass="post-it">

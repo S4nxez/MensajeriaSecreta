@@ -22,6 +22,7 @@
         <items/>
     </SplitMenuButton>
     <AnchorPane layoutX="503.0" layoutY="110.0" prefHeight="470.0" prefWidth="384.0" styleClass="chat-pane">
+        <Button fx:id="showPrivateModal" onAction="#showNewPrivateGroup" layoutY="20.0" layoutX="20" styleClass="green-button" visible="false">🔒Nuevo</Button>
         <Label fx:id="nombreGrupo" layoutX="116.0" layoutY="22.0" styleClass="common-label" text="Ningún grupo seleccionado" />
         <TextField fx:id="msgField" layoutX="11.0" layoutY="412.0" prefHeight="30.0" prefWidth="316.0" visible="false" />
         <Button fx:id="send" layoutX="335.0" layoutY="415.0" mnemonicParsing="false" onAction="#sendMsg" text="&gt;" visible="false" />
@@ -50,6 +51,15 @@
             <Label layoutX="30" layoutY="50.0" styleClass="common-label" text="Nombre de tu amigo" />
             <TextField fx:id="newFriend" layoutX="100.0" layoutY="80.0" prefWidth="150" />
             <Button layoutX="120" layoutY="220" onAction="#addFriend" styleClass="green-button">Agregar</Button>
+        </AnchorPane>
+        <AnchorPane fx:id="anyadirGrupoPrivadoFields" visible="false" >
+            <Label layoutX="30" layoutY="50.0" styleClass="common-label" text="Nombre del grupo" />
+            <TextField fx:id="privateGroupName" layoutX="100.0" layoutY="80.0" prefWidth="150" />
+            <HBox fx:id="hboxItem" layoutY="130" layoutX="30">
+                <CheckBox fx:id="checkBox" />
+                <Label styleClass="common-label" text="Item 1"/>
+            </HBox>
+            <Button layoutX="120" layoutY="220" onAction="#addPrivateGroup" styleClass="green-button">Crear</Button>
         </AnchorPane>
     </AnchorPane>
    <Button layoutX="556.0" layoutY="50.0" mnemonicParsing="false" onAction="#showAddFriend" styleClass="green-button" text="Añadir amigo" />

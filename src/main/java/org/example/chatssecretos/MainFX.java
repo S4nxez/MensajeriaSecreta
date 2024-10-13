@@ -5,7 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.example.chatssecretos.ui.LogInController;
-import org.example.chatssecretos.ui.MainMenuController;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 

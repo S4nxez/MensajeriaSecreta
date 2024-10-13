@@ -112,5 +112,11 @@
     "timestamp": "2024-10-11T12:12:34.0668917",
     "sender": "user",
     "grupo": "user"
+  },
+  {
+    "text": "hola",
+    "timestamp": "2024-10-13T18:26:30.7170673",
+    "sender": "user",
+    "grupo": "user"
   }
 ]
