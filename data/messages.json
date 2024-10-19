@@ -118,5 +118,17 @@
     "timestamp": "2024-10-13T18:26:30.7170673",
     "sender": "user",
     "grupo": "user"
+  },
+  {
+    "text": "asdasdsa",
+    "timestamp": "2024-10-17T13:31:12.7658723",
+    "sender": "user",
+    "grupo": "Chat con user:user2"
+  },
+  {
+    "text": "",
+    "timestamp": "2024-10-17T13:31:13.4013304",
+    "sender": "user",
+    "grupo": "Chat con user:user2"
   }
 ]

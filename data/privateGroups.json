@@ -1,0 +1,23 @@
+[
+  {
+    "nombre": "privateGroup",
+    "miembros": [
+      {
+        "name": "user",
+        "email": "user@gmail.com",
+        "pwd": "user",
+        "friends": [
+          "user2"
+        ]
+      },
+      {
+        "name": "user4",
+        "email": "user4@gmail.com",
+        "pwd": "user4",
+        "friends": []
+      }
+    ],
+    "usernameAdmin": "user",
+    "creationDate": "2024-10-17T13:30:50.2747199"
+  }
+]
