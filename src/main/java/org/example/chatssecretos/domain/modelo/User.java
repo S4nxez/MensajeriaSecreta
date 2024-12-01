@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Data
+@AllArgsConstructor
 public class User {
     private final String name;
     private final String email;
-    private final String pwd;
+    private String pwd;
     private final List<String> friends;
 
     @Override
@@ -17,8 +18,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(name, user.name) &&
-                Objects.equals(email, user.email);
+        return Objects.equals(name, user.name);
     }
 
     @Override

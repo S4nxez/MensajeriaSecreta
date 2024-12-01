@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane fx:id="pane" prefHeight="600.0" prefWidth="900.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.example.chatssecretos.ui.MainMenuController">
     <Button layoutX="90.0" layoutY="50.0" onAction="#crearClicked" styleClass="green-button">Crear grupo</Button>
     <Label fx:id="usrnmDisplay" layoutX="411.0" layoutY="42.0" styleClass="common-label">
@@ -25,9 +25,21 @@
         <Button fx:id="showPrivateModal" onAction="#showNewPrivateGroup" layoutY="20.0" layoutX="20" styleClass="green-button" visible="false">🔒Nuevo</Button>
         <Label fx:id="nombreGrupo" layoutX="116.0" layoutY="22.0" styleClass="common-label" text="Ningún grupo seleccionado" />
         <TextField fx:id="msgField" layoutX="11.0" layoutY="412.0" prefHeight="30.0" prefWidth="316.0" visible="false" />
-        <Button fx:id="send" layoutX="335.0" layoutY="415.0" mnemonicParsing="false" onAction="#sendMsg" text="&gt;" visible="false" />
+        <Button fx:id="sendNormal" layoutX="335.0" layoutY="415.0" mnemonicParsing="false" onAction="#sendMsg" text="&gt;" visible="false" />
+        <Button fx:id="sendCrypted" layoutX="335.0" layoutY="415.0" mnemonicParsing="false" onAction="#sendMsgCrypted" text="&gt;" visible="false" />
         <ListView fx:id="messagesList" layoutX="12.0" layoutY="56.0" prefHeight="336.0" prefWidth="360.0" />
     </AnchorPane>
+
+    <!-- Group pwd -->
+    <AnchorPane fx:id="blockPwd" styleClass="modal-pane" layoutX="505" layoutY="100" prefHeight="475" prefWidth="375" visible="false">
+        <Label fx:id="groupNameModal" layoutX="100.0" layoutY="50.0" styleClass="common-label">
+            <font><Font size="25.0" /></font></Label>
+        <Label layoutX="100" layoutY="150.0" styleClass="common-label" text="Contraseña:" />
+        <PasswordField fx:id="privateGroupPwdDecrypt" layoutX="100.0" layoutY="200.0" prefWidth="175" />
+        <Label fx:id="errorPwdGroup" layoutX="100.0" layoutY="250.0" maxWidth="250" wrapText="true" textFill="RED" />
+        <Button layoutX="120" layoutY="300" onAction="#decryptMessages" styleClass="green-button">Desencriptar</Button>
+    </AnchorPane>
+
     <AnchorPane fx:id="modalPane" layoutX="300" layoutY="100" prefHeight="200" prefWidth="300" styleClass="modal-pane" visible="false">
         <Button onAction="#closeModal" styleClass="close-button" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">🗙</Button>
       <Label fx:id="errorCrear" layoutX="84.0" layoutY="278.0" textFill="RED" />
@@ -62,5 +74,14 @@
             <Button layoutX="120" layoutY="220" onAction="#addPrivateGroup" styleClass="green-button">Crear</Button>
         </AnchorPane>
     </AnchorPane>
-   <Button layoutX="556.0" layoutY="50.0" mnemonicParsing="false" onAction="#showAddFriend" styleClass="green-button" text="Añadir amigo" />
+
+    <!-- Modal error -->
+    <AnchorPane fx:id="modalError" styleClass="modal-pane" layoutX="200" layoutY="100" prefHeight="200" prefWidth="400" visible="false">
+        <Button onAction="#closeModalError" styleClass="close-button" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">🗙</Button>
+        <Label fx:id="errorLabelModal" layoutX="75.0" layoutY="75.0" maxWidth="250" wrapText="true" textFill="RED" />
+    </AnchorPane>
+
+
+
+    <Button layoutX="556.0" layoutY="50.0" mnemonicParsing="false" onAction="#showAddFriend" styleClass="green-button" text="Añadir amigo" />
 </AnchorPane>

@@ -8,12 +8,12 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class PrivateGroup {
     private final String nombre;
-    private final ArrayList<User> miembros;
+    private final List<User> miembros;
     private final String usernameAdmin;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @JsonDeserialize(using = LocalDateDeserializer.class)

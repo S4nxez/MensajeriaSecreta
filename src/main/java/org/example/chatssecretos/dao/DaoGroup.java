@@ -1,14 +1,18 @@
 package org.example.chatssecretos.dao;
 
+import io.vavr.control.Either;
+import org.example.chatssecretos.domain.errors.ErrorApp;
 import org.example.chatssecretos.domain.modelo.Group;
+import org.example.chatssecretos.domain.modelo.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DaoGroup {
-    boolean addGroup(Group group);
+    Either<ErrorApp, Void> addGroup(Group group);
 
-    List<Group> getGroups();
+    Either<ErrorApp, List<Group>> getGroups();
 
-    boolean updateGroup(Optional<Group> group);
+    Either<ErrorApp, Void> updateGroup(Group group);
+
+    Either<ErrorApp, List<Group>> getGroupsByUser(User user);
 }

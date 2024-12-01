@@ -8,6 +8,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.google.gson.Gson;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -18,6 +20,11 @@ public class SpringConfig {
         FXMLLoader loader = new FXMLLoader();
         loader.setControllerFactory(context::getBean);
         return loader;
+    }
+
+    @Bean
+    public PasswordEncoder createPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

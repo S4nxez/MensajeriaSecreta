@@ -17,6 +17,9 @@ public class Configuration {
     private String pathGroups;
     private String pathMessages;
     private String pathPrivateGroups;
+    private String pathKeyStore;
+    private String keystorePassword;
+    private String pathPrivateMessages;
 
     private Configuration() {
         Properties properties= new Properties();
@@ -26,9 +29,12 @@ public class Configuration {
             this.pathUsers = properties.getProperty("pathUsers");
             this.pathGroups = properties.getProperty("pathGroups");
             this.pathMessages = properties.getProperty("pathMessages");
+            this.pathKeyStore = properties.getProperty("pathKeyStore");
             this.pathPrivateGroups = properties.getProperty("pathPrivateGroups");
+            this.keystorePassword = properties.getProperty("keystorePassword");
+            this.pathPrivateMessages = properties.getProperty("pathPrivateMessages");
         } catch (IOException e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
     }
 }
