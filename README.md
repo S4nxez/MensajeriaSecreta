@@ -1,18 +1,20 @@
 # Mensajería Secreta
 
 ### Descripción
-Mensajería Secreta es una aplicación de mensajería encriptada similar a WhatsApp, diseñada para garantizar la privacidad de las conversaciones. Este proyecto está siendo desarrollado como parte de un curso, y su principal objetivo es ofrecer una plataforma segura y privada para enviar mensajes.
+Aplicación de mensajería privada desarrollada en Java con Spring y JavaFX, que ofrece cifrado simétrico y asimétrico de mensajes con algoritmo de curva elíptica y encriptación asimétrica de usuarios. Utiliza un modelo de capas para mantener un código limpio, inyección de dependencias con Spring, Railway Programming para gestionar errores y tests con Mockito. Incorpora un flujo de CI para compilar y probar automáticamente, almacenamiento seguro en Keystore y procesamiento concurrente mediante CompletableFuture para tareas en múltiples hilos.
 
 ### Estado del Proyecto
-🚧 **En desarrollo**: Este proyecto aún está en fase de desarrollo y algunas características podrían cambiar. Actualmente, se utiliza GSON para almacenar temporalmente los datos, pero en próximas semanas se migrará a un sistema con datos hasheados.
+🚧 **En desarrollo**: Este proyecto aún está en fase de desarrollo y algunas características podrían cambiar. 
 
 ### Características
-- **Mensajes encriptados**: Los mensajes entre los usuarios son completamente privados.
-- **CRUD de usuarios, grupos y mensajes**.
-- **Interfaz gráfica** desarrollada en **JavaFX**.
-- **Gestión de logs** con **Log4j2**.
-- **Compilación y pruebas automatizadas** usando **GitHub Actions** y **Maven**.
-
+- **Mensajes encriptados:** Encriptación simétrica y asimétrica (curva elíptica).
+- **Interfaz gráfica:** Desarrollada con JavaFX.
+- **Gestión de errores:** Implementación de Railway Programming.
+- **CI/CD automatizado:** Flujo de trabajo con GitHub Actions para compilar y probar automáticamente.
+- **Inyección de dependencias con Spring.**
+- **Concurrencia:** Uso de CompletableFuture para tareas en múltiples hilos.
+- **Logs detallados** usando **Log4j2**.
+  
 ### Capturas de Pantalla
 
 Aquí hay algunas capturas de pantalla de la aplicación:
