@@ -37,7 +37,7 @@ Aquí hay algunas capturas de pantalla de la aplicación:
 
 1. Clona este repositorio:
     ```bash
-    git clone https://github.com/usuario/mensajeria-secreta.git
+    git clone https://github.com/usuario/MensajeriaSecreta.git
     ```
    
 2. Navega al directorio del proyecto:
